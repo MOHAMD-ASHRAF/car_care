@@ -1,5 +1,6 @@
-import 'package:car_care/constants/app_colors.dart';
-import 'package:car_care/constants/drawer_widget.dart';
+
+import 'package:car_care/shared/constants/app_colors.dart';
+import 'package:car_care/shared/constants/drawer_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
