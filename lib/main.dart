@@ -1,3 +1,4 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:car_care/screens/login/login_screen.dart';
 import 'package:car_care/screens/main_screens/creat_account_screen.dart';
 import 'package:car_care/screens/main_screens/home_screen.dart';
@@ -17,7 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      home: AnimatedSplashScreen(
+        splash: Image.asset('assets/trs.png'),
+        nextScreen: LoginScreen(),
+        splashTransition: SplashTransition.decoratedBoxTransition,
+      ),
     );
   }
 }

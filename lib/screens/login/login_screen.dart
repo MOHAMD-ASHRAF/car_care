@@ -14,11 +14,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
-
   var passwordController =TextEditingController();
-
   bool? checked =false;
-
+  bool isHide =true;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -85,10 +83,18 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(height: 5,),
                         defaultField(
-                          isPassword: true,
+                          obscureText:isHide,
                           emailController:  passwordController,
                           width: double.infinity,
                           typeOfInput: TextInputType.emailAddress,
+                          suffix: GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                 isHide =!isHide;
+                              });
+                            },
+                            child: isHide ? Icon(Icons.visibility_off) : Icon(Icons.visibility , color: Colors.green) ,
+                          ),
                         ),
                         SizedBox(height: 5,),
                         Row(
@@ -143,6 +149,13 @@ class _LoginScreenState extends State<LoginScreen> {
       ],
     );
   }
+  void changePasswordView() {
+   // isHide == true ? isHide == false : isHide == true;
+   // isHide =!isHide!;
+    setState(() {
+     // isHide =!isHide!;
+    });
+  }
 }
 
 
@@ -155,10 +168,10 @@ Widget backGround()=>Container(
   ),
 );
 
-Widget defaultText({required String text})=>
-    Text(
+Widget defaultText({required String text})=> Text(
     text, style:
 TextStyle(color: Colors.grey[500]
   ,fontSize: 16,
 )
 );
+

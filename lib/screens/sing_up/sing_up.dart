@@ -13,14 +13,16 @@ class SingUpScreen extends StatefulWidget {
 }
 
 class _SingUpScreenState extends State<SingUpScreen> {
+  var emailController = TextEditingController();
+  var nameController = TextEditingController();
+  var phoneController = TextEditingController();
+  var cityController = TextEditingController();
+  var passwordController =TextEditingController();
+  var confirmPasswordController =TextEditingController();
+  bool  isHide =true;
+  bool  isHideConfirm=true;
   @override
   Widget build(BuildContext context) {
-    var emailController = TextEditingController();
-    var nameController = TextEditingController();
-    var phoneController = TextEditingController();
-    var cityController = TextEditingController();
-    var passwordController =TextEditingController();
-    var confirmPasswordController =TextEditingController();
     return Stack(
       children: [
         backGround(),
@@ -115,10 +117,18 @@ class _SingUpScreenState extends State<SingUpScreen> {
                                defaultText(text:'Password'),
                                SizedBox(height: 5,),
                                defaultField(
-                                 isPassword: true,
+                                 obscureText: isHide,
                                  emailController: passwordController,
                                  width: 150,
                                  typeOfInput: TextInputType.number,
+                                 suffix: GestureDetector(
+                                   onTap: (){
+                                     setState(() {
+                                       isHide =!isHide;
+                                     });
+                                   },
+                                   child: isHide ? Icon(Icons.visibility_off) : Icon(Icons.visibility , color: Colors.green) ,
+                                 ),
                                ),
                              ],
                            ),
@@ -129,10 +139,18 @@ class _SingUpScreenState extends State<SingUpScreen> {
                                 defaultText(text:'Confirm Password'),
                                 SizedBox(height: 5,),
                                 defaultField(
-                                  isPassword: true,
+                                  obscureText:  isHideConfirm,
                                   emailController: confirmPasswordController,
                                   width: 150,
                                   typeOfInput: TextInputType.number,
+                                  suffix: GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        isHideConfirm = !isHideConfirm;
+                                      });
+                                    },
+                                    child:  isHideConfirm ? Icon(Icons.visibility_off) : Icon(Icons.visibility , color: Colors.green) ,
+                                  ),
                                 ),
                               ],
                             ),

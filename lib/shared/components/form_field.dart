@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 Widget defaultField({
-
   required TextEditingController emailController,
   required double? width,
-  bool isPassword = false,
+  bool obscureText = false,
   required  TextInputType typeOfInput,
-  IconData? preFix,
+  Widget? preFix,
+  Widget? suffix,
   ValueChanged<String>? onSubmitted,
 }) => Container(
   width: width,
@@ -15,9 +15,10 @@ Widget defaultField({
     controller: emailController,
     readOnly: false,
     keyboardType: typeOfInput,
-    obscureText: isPassword,
+    obscureText: obscureText,
     decoration: InputDecoration(
-        prefix: Icon(preFix),
+        prefix: preFix,
+        suffix: suffix,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(7),
