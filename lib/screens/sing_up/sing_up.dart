@@ -1,13 +1,10 @@
-
-import 'package:car_care/shared/components/defult_button.dart';
-import 'package:car_care/shared/components/form_field.dart';
-import 'package:car_care/screens/login/login_screen.dart';
+import '../../shared/components/defult_button.dart';
+import '../../shared/components/form_field.dart';
+import '../login/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SingUpScreen extends StatefulWidget {
-
-
   @override
   _SingUpScreenState createState() => _SingUpScreenState();
 }
@@ -17,10 +14,10 @@ class _SingUpScreenState extends State<SingUpScreen> {
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
   var cityController = TextEditingController();
-  var passwordController =TextEditingController();
-  var confirmPasswordController =TextEditingController();
-  bool  isHide =true;
-  bool  isHideConfirm=true;
+  var passwordController = TextEditingController();
+  var confirmPasswordController = TextEditingController();
+  bool isHide = true;
+  bool isHideConfirm = true;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -35,11 +32,11 @@ class _SingUpScreenState extends State<SingUpScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>  LoginScreen(),
+                          builder: (context) => LoginScreen(),
                         ),
                       );
                     },
@@ -52,7 +49,8 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                    child: Text('Create',
+                    child: Text(
+                      'Create',
                       style: TextStyle(
                         fontSize: 40,
                         color: Colors.white,
@@ -62,7 +60,8 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 100),
-                    child: Text('Account',
+                    child: Text(
+                      'Account',
                       style: TextStyle(
                         fontSize: 40,
                         color: Colors.white,
@@ -70,101 +69,108 @@ class _SingUpScreenState extends State<SingUpScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 130,),
+                  SizedBox(
+                    height: 130,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 20),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children:[
-                        defaultText(text:'name'),
-                        SizedBox(height: 5,),
+                      children: [
+                        defaultText(text: 'name'),
+                        SizedBox(
+                          height: 5,
+                        ),
                         defaultField(
-                          emailController: nameController,
+                          controller: nameController,
                           width: double.infinity,
                           typeOfInput: TextInputType.name,
                         ),
-                        SizedBox(height:10),
-                        defaultText(text:'email'),
-                        SizedBox(height: 5,),
+                        SizedBox(height: 10),
+                        defaultText(text: 'email'),
+                        SizedBox(
+                          height: 5,
+                        ),
                         defaultField(
-                          emailController:  emailController,
+                          controller: emailController,
                           width: double.infinity,
                           typeOfInput: TextInputType.emailAddress,
                         ),
-                        SizedBox(height:10),
-                        defaultText(text:'Phone Number'),
-                        SizedBox(height: 5,),
+                        SizedBox(height: 10),
+                        defaultText(text: 'Phone Number'),
+                        SizedBox(
+                          height: 5,
+                        ),
                         defaultField(
-                          emailController: phoneController,
+                          controller: phoneController,
                           width: double.infinity,
                           typeOfInput: TextInputType.number,
                         ),
-                        SizedBox(height: 10,),
-                        defaultText(text:'City/Town'),
-                        SizedBox(height: 5,),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        defaultText(text: 'City/Town'),
+                        SizedBox(
+                          height: 5,
+                        ),
                         defaultField(
-                          emailController: cityController,
+                          controller: cityController,
                           width: double.infinity,
                           typeOfInput: TextInputType.text,
-                         ),
-                        SizedBox(height: 5,),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Row(
                           children: [
-                           Column(
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                             children: [
-                               defaultText(text:'Password'),
-                               SizedBox(height: 5,),
-                               defaultField(
-                                 obscureText: isHide,
-                                 emailController: passwordController,
-                                 width: 150,
-                                 typeOfInput: TextInputType.number,
-                                 suffix: GestureDetector(
-                                   onTap: (){
-                                     setState(() {
-                                       isHide =!isHide;
-                                     });
-                                   },
-                                   child: isHide ? Icon(Icons.visibility_off) : Icon(Icons.visibility , color: Colors.green) ,
-                                 ),
-                               ),
-                             ],
-                           ),
-                            SizedBox(width: 10,),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                defaultText(text:'Confirm Password'),
-                                SizedBox(height: 5,),
+                                defaultText(text: 'Password'),
+                                SizedBox(
+                                  height: 5,
+                                ),
                                 defaultField(
-                                  obscureText:  isHideConfirm,
-                                  emailController: confirmPasswordController,
+                                  obscureText: isHide,
+                                  controller: passwordController,
                                   width: 150,
                                   typeOfInput: TextInputType.number,
-                                  suffix: GestureDetector(
-                                    onTap: (){
-                                      setState(() {
-                                        isHideConfirm = !isHideConfirm;
-                                      });
-                                    },
-                                    child:  isHideConfirm ? Icon(Icons.visibility_off) : Icon(Icons.visibility , color: Colors.green) ,
-                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                defaultText(text: 'Confirm Password'),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                defaultField(
+                                  obscureText: isHideConfirm,
+                                  controller: confirmPasswordController,
+                                  width: 150,
+                                  typeOfInput: TextInputType.number,
                                 ),
                               ],
                             ),
                           ],
                         ),
-                        defaultText(text:'Account Type'),
-                        SizedBox(height: 5,),
+                        defaultText(text: 'Account Type'),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Center(
                           child: defaultButton(
                             width: 150,
                             color: Colors.red,
                             colorText: Colors.white,
                             text: 'Sin up',
-                            function: (){},
+                            function: () {},
                           ),
                         ),
                         Divider(
@@ -175,14 +181,22 @@ class _SingUpScreenState extends State<SingUpScreen> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children:[
-                            Text('Already have an account ?' ,style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+                          children: [
+                            Text(
+                              'Already have an account ?',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
                             ),
                             TextButton(
-                                onPressed: (){
+                                onPressed: () {
                                   navigateTo(context, LoginScreen());
                                 },
-                              child:Text('LOG IN', style: TextStyle(color: Colors.black),))
+                                child: Text(
+                                  'LOG IN',
+                                  style: TextStyle(color: Colors.black),
+                                ))
                           ],
                         )
                       ],
@@ -198,11 +212,11 @@ class _SingUpScreenState extends State<SingUpScreen> {
   }
 }
 
-Widget backGround()=>Container(
-  decoration: BoxDecoration(
-    image: DecorationImage(
-      image: AssetImage('assets/3.png'),
-      fit: BoxFit.cover,
-    ),
-  ),
-);
+Widget backGround() => Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/3.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );

@@ -1,5 +1,4 @@
-
-import 'package:car_care/shared/constants/app_colors.dart';
+import 'app_colors.dart';
 import 'package:flutter/material.dart';
 
 class DrawerWidget extends StatelessWidget {

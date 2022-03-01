@@ -24,6 +24,10 @@ dependencies:
   flutter:
     sdk: flutter
   animated_splash_screen: ^1.2.0
+  dio: ^4.0.4
+  flutter_bloc: ^8.0.1
+  bloc: ^8.0.2
+  conditional_builder_null_safety: ^0.0.6
 
 
   # The following adds the Cupertino Icons font to your application.
