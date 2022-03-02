@@ -48,19 +48,19 @@ class HomeScreen extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               children: [
                 homeItem(
-                    image: AssetImage('assets/Untitled-6.png'),
+                    image: AssetImage('assets/images/Untitled-6.png'),
                     text: 'CAE REPAIR',
                     function: () {
                       navigateTo(context, CarRepairScreen());
                     }),
                 homeItem(
-                    image: AssetImage('assets/Untitled-7.png'),
+                    image: AssetImage('assets/images/Untitled-7.png'),
                     text: 'RECOVERY',
                     function: () {
                       navigateTo(context, RecoveryScreen());
                     }),
                 homeItem(
-                    image: AssetImage('assets/Untitled-5.png'),
+                    image: AssetImage('assets/images/Untitled-5.png'),
                     text: 'SPARE PARTS',
                     function: () {
                       navigateTo(context, SpareScreen());
@@ -72,7 +72,7 @@ class HomeScreen extends StatelessWidget {
                       navigateTo(context, BarkingScreen());
                     }),
                 homeItem(
-                    image: AssetImage('assets/Untitled-2.png'),
+                    image: AssetImage('assets/images/Untitled-2.png'),
                     text: 'BUY % SELL',
                     function: () {
                       navigateTo(context, BuySellScreen());

@@ -44,7 +44,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                       width: 80,
                       height: 60,
                       fit: BoxFit.cover,
-                      image: AssetImage('assets/back buttom.png'),
+                      image: AssetImage('assets/images/back buttom.png'),
                     ),
                   ),
                   Padding(

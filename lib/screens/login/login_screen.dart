@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../shared/components/defult_button.dart';
 import '../../shared/components/form_field.dart';
+import '../main_screens/home_screen.dart';
 import '../sing_up/sing_up.dart';
 import 'cubit/login_cubit.dart';
 
@@ -17,7 +18,26 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is LoginSuccessState){
+            if(state.loginModel.status){
+              print(state.loginModel.message);
+              print(state.loginModel.data.token);
+              navigateAndFinish(context, HomeScreen());
+              // showToast(
+              //   text: state.loginModel.message,
+              //   state: ToastStates.SUCCESS,
+              // );
+
+            }else{
+              print(state.loginModel.message);
+              // showToast(
+              //   text: state.loginModel.message,
+              //   state: ToastStates.ERROR,
+              // );
+            }
+          }
+        },
         builder: (context, state) {
           return Stack(
             children: [
@@ -61,7 +81,7 @@ class LoginScreen extends StatelessWidget {
                             width: double.infinity,
                             height: 150,
                             child: Image(
-                              image: AssetImage('assets/logo.png'),
+                              image: AssetImage('assets/images/logo.png'),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -198,7 +218,7 @@ class LoginScreen extends StatelessWidget {
 Widget backGround() => Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/3.png'),
+          image: AssetImage('assets/images/3.png'),
           fit: BoxFit.cover,
         ),
       ),
