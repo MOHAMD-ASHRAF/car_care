@@ -2,6 +2,7 @@ import '../buy_sell/buy_sell_screen.dart';
 import '../car_repair/car_repair_screen.dart';
 import '../car_service/car_service.dart';
 import '../parking/parking_screen.dart';
+import '../profile/profile_screen.dart';
 import '../recovery/recovery_screen.dart';
 import '../spare_parts/spare_screen.dart';
 import '../../shared/components/defult_button.dart';
@@ -31,13 +32,22 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           actions: [
-            Icon(Icons.notifications_active_outlined),
+            MaterialButton(
+              minWidth: 10,
+              height: 10,
+              onPressed: (){
+              navigateTo(context, ProfileScreen());
+            },
+              child: CircleAvatar(
+              radius: 20,
+              backgroundImage:NetworkImage('https://yt3.ggpht.com/ytc/AKedOLRpe2Lbdy5gdRrTFKEK2ZvC1cQSv1gxjx7lV0_Nkg=s900-c-k-c0x00ffffff-no-rj',),
+            ),)
           ],
           flexibleSpace: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
+                  bottomLeft: Radius.circular(7),
+                  bottomRight: Radius.circular(7)),
               color: appPrimaryColor,
             ),
           ),

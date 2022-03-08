@@ -31,18 +31,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   List<BoardingModel> boarding = [
     BoardingModel(
         image: 'assets/images/first.png',
-        title: 'ON boarding 1 Title',
-        body: 'ON boarding 1 Body'
+        title: 'Welcome ',
+        body: 'Welcome to our services in car care'
     ),
     BoardingModel(
         image: 'assets/images/towing.png',
-        title: 'ON boarding 2 Title',
-        body: 'ON boarding 2 Body'
+        title: 'our services',
+        body: 'Our services include everything related to car services and maintenance'
     ),
     BoardingModel(
         image: 'assets/images/login.png',
-        title: 'ON boarding 3 Title',
-        body: 'ON boarding 3 Body'
+        title: 'Register now',
+        body: 'Register now to get all the features and services'
     ),
   ];
 

@@ -6,7 +6,9 @@ class DioHelper {
     dio = Dio(BaseOptions(
         baseUrl: 'https://student.valuxapps.com/api/',
         receiveDataWhenStatusError: true,
-        headers: {'Content-Type': 'application/json'}));
+      headers: {'Content-Type': 'application/json'}
+    )
+    );
   }
 
   static Future<Response> getData({

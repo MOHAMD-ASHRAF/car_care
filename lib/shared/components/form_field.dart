@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 Widget defaultField({
   required TextEditingController controller,
   required double? width,
+   double height=30,
   bool obscureText = false,
   required TextInputType typeOfInput,
   Widget? preFix,
@@ -13,7 +14,7 @@ Widget defaultField({
 }) =>
     Container(
       width: width,
-      height: 30,
+      height: height,
       child: TextFormField(
         controller: controller,
         readOnly: false,

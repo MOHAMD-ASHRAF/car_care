@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        appBarTheme: AppBarTheme(),
       ),
       home: AnimatedSplashScreen(
         splash: Image.asset('assets/trs.png'),

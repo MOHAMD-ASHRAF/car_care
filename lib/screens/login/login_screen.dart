@@ -10,10 +10,12 @@ import 'cubit/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var emailController = TextEditingController();
-    var passwordController = TextEditingController();
+
+    final isKeyboard = MediaQuery.of(context).viewInsets.bottom !=0;
     bool? checked = false;
     return BlocProvider(
       create: (BuildContext context) => LoginCubit(),
@@ -24,17 +26,8 @@ class LoginScreen extends StatelessWidget {
               print(state.loginModel.message);
               print(state.loginModel.data.token);
               navigateAndFinish(context, HomeScreen());
-              // showToast(
-              //   text: state.loginModel.message,
-              //   state: ToastStates.SUCCESS,
-              // );
-
             }else{
               print(state.loginModel.message);
-              // showToast(
-              //   text: state.loginModel.message,
-              //   state: ToastStates.ERROR,
-              // );
             }
           }
         },
@@ -45,7 +38,7 @@ class LoginScreen extends StatelessWidget {
               Scaffold(
                 backgroundColor: Colors.transparent,
                 body: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                 physics: BouncingScrollPhysics(),
                   child: SafeArea(
                     child: Form(
                       key: formKey,
@@ -53,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsets.fromLTRB(20, 50, 0, 0),
+                            padding: EdgeInsets.fromLTRB(20, 30, 0, 0),
                             child: Text(
                               'Welcome',
                               style: TextStyle(
@@ -75,15 +68,11 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: 150,
+                            height: 140,
                           ),
-                          Container(
-                            width: double.infinity,
-                            height: 150,
-                            child: Image(
-                              image: AssetImage('assets/images/logo.png'),
-                              fit: BoxFit.cover,
-                            ),
+                        if(!isKeyboard) buildLogo(),
+                          SizedBox(
+                            height: 15,
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
@@ -94,29 +83,32 @@ class LoginScreen extends StatelessWidget {
                               children: [
                                 Text('Email',
                                     style: TextStyle(
-                                      color: Colors.grey[500],
+                                      color: Colors.grey[800],
                                       fontSize: 16,
                                     )),
                                 SizedBox(height: 5),
                                 defaultField(
                                     controller: emailController,
                                     width: double.infinity,
+                                    height: 45,
                                     typeOfInput: TextInputType.emailAddress,
                                     validate: (value) {
                                       if (value!.isEmpty) {
                                         return 'email is empty';
                                       }
+                                      return null;
                                     }),
                                 SizedBox(height: 10),
                                 Text('Password',
                                     style: TextStyle(
-                                      color: Colors.grey[500],
+                                      color: Colors.grey[800],
                                       fontSize: 16,
                                     )),
                                 SizedBox(
                                   height: 5,
                                 ),
                                 defaultField(
+                                    height: 45,
                                   onSubmitted: (value){
                                     if (formKey.currentState!.validate()) {
                                       LoginCubit.get(context).userLogin(
@@ -154,8 +146,9 @@ class LoginScreen extends StatelessWidget {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 5,
+                                  height: 10,
                                 ),
+                               // Spacer(),
                                 Center(
                                   child: ConditionalBuilder(
                                     builder: (context) => defaultButton(
@@ -177,6 +170,7 @@ class LoginScreen extends StatelessWidget {
                                             color: Colors.red)),
                                   ),
                                 ),
+                                SizedBox(height: 30),
                                 Row(
                                   children: [
                                     TextButton(
@@ -229,3 +223,11 @@ Widget defaultText({required String text}) => Text(text,
       color: Colors.grey[500],
       fontSize: 16,
     ));
+Widget buildLogo({final urlLogo =
+'assets/images/logo.png'})  => Container(
+    width: double.infinity,
+    height: 150,
+   child:Image(image: AssetImage(urlLogo),fit: BoxFit.cover,),
+  );
+
+

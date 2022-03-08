@@ -1,11 +1,9 @@
-import 'package:bloc/bloc.dart';
+
 import 'package:car_care/model/login_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../network/end_point.dart';
 import '../../../network/remote/dio_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
-import '../../../network/end_point';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState>
