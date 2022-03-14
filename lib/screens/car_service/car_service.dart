@@ -11,16 +11,16 @@ class CarServices extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: MaterialButton(
-            minWidth: 20,
+          leading: IconButton(
+            icon: Image(
+              image: AssetImage('assets/back buttom.png'),
+             fit: BoxFit.cover,
+        ),
             padding: EdgeInsets.all(0),
             onPressed: () {
               Navigator.pop(context, HomeScreen());
             },
-            child: Image(
-              image: AssetImage('assets/back buttom.png'),
-              fit: BoxFit.cover,
-            ),
+
           ),
           toolbarHeight: 70,
           backgroundColor: Colors.transparent,
@@ -65,6 +65,7 @@ class CarServices extends StatelessWidget {
                 crossAxisCount: 2,
                 mainAxisSpacing: 40,
                 crossAxisSpacing: 20,
+                childAspectRatio: 0.75,
               )),
         ));
   }

@@ -1,5 +1,6 @@
 
 import 'package:car_care/model/login_model.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../../../network/end_point.dart';
 import '../../../network/remote/dio_helper.dart';
@@ -12,6 +13,10 @@ class LoginCubit extends Cubit<LoginState>
   LoginCubit() : super(LoginInitialState());
   static LoginCubit get(context) => BlocProvider.of(context);
 
+
+
+
+  //used then and catchError
   void userLogin({
     required String email,
     required String password,
@@ -22,14 +27,54 @@ class LoginCubit extends Cubit<LoginState>
       print(value.data);
       loginModel= LoginModel.fromJson(value.data);
       print(loginModel.status);
-      print(loginModel.message);
-      print(loginModel.data.token);
+      print(loginModel.token);
+      print(loginModel.user!.name);
+      print(loginModel.user!.email);
+      print(loginModel.user!.id);
       emit(LoginSuccessState(loginModel));
     }).catchError((error) {
       emit(LoginErrorState(error.toString()));
       print(error.toString());
     });
   }
+
+
+
+
+  //used try and catch
+  void getUserOne ({
+    required String email,
+    required String password,
+}) async{
+    emit(LoginLodingState());
+    try{
+      var response = await DioHelper.postData(
+        data: {'email': email, 'password': password}, url: LOGIN,
+      );
+      print(response.data);
+      print(response.statusCode);
+      loginModel= LoginModel.fromJson(response.data);
+      emit(LoginSuccessState(loginModel));
+    }on DioError catch(e){
+      debugPrint("${e.response!.data}");
+      debugPrint("${e.response!.statusCode}");
+     // print(e.response!.data);
+      loginModel= LoginModel.fromJson(e.response!.data);
+      emit(LoginSuccessState(loginModel));
+    }
+    catch(e){
+      print(e.toString());
+      emit(LoginErrorState(e.toString()));
+    }
+  }
+
+
+
+
+
+
+
+
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
   void changePasswordVisibility()

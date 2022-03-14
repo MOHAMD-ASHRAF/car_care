@@ -3,15 +3,25 @@ import 'package:flutter/material.dart';
 import '../../shared/constants/app_colors.dart';
 
 class BarkingScreen extends StatelessWidget {
-  const BarkingScreen({Key? key}) : super(key: key);
 
+ var emailControler = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: (AppBar(backgroundColor: appPrimaryColor)),
-      body: Center(
-          child: Text('parking  will by Available Soon.....',
-              style: TextStyle(fontSize: 20, color: Colors.grey))),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: TextFormField(
+          controller: emailControler,
+          decoration: InputDecoration(
+           border: OutlineInputBorder(
+             borderRadius: BorderRadius.circular(16),
+           ),
+          ),
+          keyboardType: TextInputType.emailAddress,
+        ),
+
+      ),
     );
   }
 }

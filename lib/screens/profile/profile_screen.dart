@@ -1,13 +1,29 @@
 
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../shared/components/card_info.dart';
-import '../../shared/components/defult_button.dart';
 import '../../shared/constants/app_colors.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  File? image;
+
+  Future pickImage() async {
+   try{
+     final image= await ImagePicker().pickImage(source: ImageSource.gallery);
+     if(image == null) return;
+     final imageTemporary = File (image.path);
+     setState(() => this.image = imageTemporary);
+   } on PlatformException catch(e){
+     print('failed to pick image $e');
+   }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +75,8 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 80,
-                      backgroundImage:NetworkImage('https://sg-res.9appsdownloading.com/sg/res/jpg/57/f8/b0605445fa2c1d60b50c9875731d-add.jpg?x-oss-process=style/hq',),
+                      //backgroundImage: image != null ? Image.file(image!,fit: BoxFit.cover),
+                      backgroundColor: Colors.yellow,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 5, bottom: 2),
@@ -72,7 +89,7 @@ class ProfileScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 5, bottom: 2),
                       child: CircleAvatar(
                         radius: 15,
-                        child: Icon(Icons.camera_alt_outlined , color: Colors.white,),
+                        child: Container(child: IconButton(icon: Icon(Icons.camera_alt_outlined), color: Colors.white, onPressed: () =>openDialog(context),iconSize: 16,)),
                         backgroundColor: appPrimaryColor ,
                       ),
                     ),
@@ -128,3 +145,39 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+
+Future openDialog(context) =>showDialog(
+    context: context,
+    builder: (context) =>AlertDialog(
+      title: Text('chose option'),
+      content: Container(
+        height: 80,
+        child: Column(
+          children: [
+            InkWell(
+              onTap: (){},
+              child: Row(
+                children: [
+                  Icon(Icons.image ,color: Colors.green,),
+                  SizedBox(width: 10,),
+                  Text('from phone'),
+                ],
+              ),
+            ),
+            SizedBox(height: 20,),
+            InkWell(
+              onTap: (){},
+              child: Row(
+                children: [
+                  Icon(Icons.camera_alt ,color: Colors.pink,),
+                  SizedBox(width: 10,),
+                  Text('camera'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    )
+);
+

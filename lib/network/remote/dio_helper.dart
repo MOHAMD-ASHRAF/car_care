@@ -4,7 +4,7 @@ class DioHelper {
   static late Dio dio;
   static init() {
     dio = Dio(BaseOptions(
-        baseUrl: 'https://student.valuxapps.com/api/',
+        baseUrl: 'https://car-care3.herokuapp.com/',
         receiveDataWhenStatusError: true,
       headers: {'Content-Type': 'application/json'}
     )
@@ -25,13 +25,13 @@ class DioHelper {
     required String url,
     Map<String, dynamic>? query,
     required Map<String, dynamic> data,
-    String lang ='ar',
+    //String lang ='ar',
     String? token,
   }) async {
     dio.options.headers ={
       'Content-Type': 'application/json',
-      'lang': lang,
-      'Authorization' : token??'',
+      //'lang': lang,
+      'x-auth-token' : token??'',
     };
     return await dio.post(
       url,
@@ -39,4 +39,8 @@ class DioHelper {
       data: data,
     );
   }
+
 }
+
+
+

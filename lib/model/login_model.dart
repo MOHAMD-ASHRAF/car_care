@@ -1,27 +1,23 @@
 class LoginModel{
-  late bool status;
-  late String message;
-  late UserData data;
+  late String status;
+  String? token;
+  UserData? user;
+  String? message;
   LoginModel.fromJson(Map<String,dynamic> json){
     status = json['status'];
-    message = json['message'];
-    data = (json['data'] != null ? UserData.fromJson(json['data']) : null)!;
+    token = json['token'];
+    message =json['message'];
+    user = user == null ? null : UserData.fromJson(json['user']);
   }
 }
 class UserData{
-  late int id;
-  late String name;
-  late String phone;
-  late String email;
-  late String image;
-  late String token;
+   String? id;
+   String? name;
+   String? email;
 
   UserData.fromJson(Map<String,dynamic> json){
-    id = json['id'];
+    id = json['_id'];
     name = json['name'];
-    phone = json['phone'];
-    image = json['image'];
-    token = json['token'];
     email = json['email'];
   }
 }

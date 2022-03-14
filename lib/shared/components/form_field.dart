@@ -2,35 +2,30 @@ import 'package:flutter/material.dart';
 
 Widget defaultField({
   required TextEditingController controller,
-  required double? width,
-   double height=30,
-  bool obscureText = false,
   required TextInputType typeOfInput,
+  bool obscureText = false,
   Widget? preFix,
   IconData? suffix,
   ValueChanged<String>? onSubmitted,
   FormFieldValidator<String>? validate,
   VoidCallback? suffixPressed,
 }) =>
-    Container(
-      width: width,
-      height: height,
+    Center(
       child: TextFormField(
+        style: TextStyle(fontSize: 16),
         controller: controller,
         readOnly: false,
         keyboardType: typeOfInput,
         obscureText: obscureText,
         decoration: InputDecoration(
-            prefix: preFix,
-            suffix: IconButton(
-                onPressed: suffixPressed,
-                icon: Icon(suffix),
-            ),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(7),
-              ),
-            )),
+              borderRadius: BorderRadius.circular(16),
+            ),
+          suffixIcon: suffix != null ?IconButton(
+            onPressed: suffixPressed,
+            icon: Icon(suffix),
+          ): null,
+        ),
         onFieldSubmitted: onSubmitted,
         validator: validate,
       ),

@@ -1,5 +1,8 @@
+import '../../shared/components/default_button.dart';
 import '../../shared/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+
+import 'car_repaier_details_screen.dart';
 
 class CarRepairScreen extends StatelessWidget {
   const CarRepairScreen({Key? key}) : super(key: key);
@@ -8,41 +11,84 @@ class CarRepairScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: appPrimaryColor,
-        title: Center(child: Text('Car Repair')),
+        toolbarHeight: 70,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          'Car Repair',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.menu),
-          )
+          MaterialButton(
+            minWidth: 10,
+            height: 10,
+            onPressed: (){
+              //navigateTo(context, ProfileScreen());
+            },
+            child: Icon(
+              Icons.search,
+              color: Colors.white,
+            ))
         ],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(7),
+                bottomRight: Radius.circular(7)),
+            gradient: LinearGradient(
+              colors: [Colors.yellow,Colors.red],
+              begin: Alignment.bottomRight,
+              end: Alignment.bottomLeft,
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
-        child: ListView.separated(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          separatorBuilder:(context, index) => SizedBox(height: 15,),
-          itemCount: 20,
-          itemBuilder:(context, index) => buildListViewItem(),
+        physics: BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            separatorBuilder:(context, index) => SizedBox(height: 15,),
+            itemCount: 20,
+            itemBuilder:(context, index) => buildListViewItem(context),
+          ),
         ),
       ),
     );
   }
 }
 
-Widget buildListViewItem()=>Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 20),
-  child: Container(
+Widget buildListViewItem(context)=>InkWell(
+  onTap: (){
+    navigateTo(context, CarRepairDetailsScreen());
+  },
+  child:   Container(
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.grey[200],
+        color: Colors.grey[300],
         border: Border.all(color: Colors.transparent,)
     ),
     child: ListTile(
       dense: true,
-      leading: CircleAvatar(
-        radius: 30,
-        backgroundImage:NetworkImage('https://yt3.ggpht.com/ytc/AKedOLRpe2Lbdy5gdRrTFKEK2ZvC1cQSv1gxjx7lV0_Nkg=s900-c-k-c0x00ffffff-no-rj',),
+      leading: Stack(
+        alignment: AlignmentDirectional.center,
+        children: [
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: appPrimaryColor ,
+          ),
+          CircleAvatar(
+            radius: 22,
+            backgroundImage:NetworkImage('https://therealchamps.com/wp-content/uploads/getty-images/2017/07/1360439294.jpeg',),
+          ),
+        ],
       ),
       title: Text('Mohamed Ashraf Mohamed Ali',
         style: TextStyle(
