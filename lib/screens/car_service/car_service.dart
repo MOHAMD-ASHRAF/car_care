@@ -13,14 +13,13 @@ class CarServices extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             icon: Image(
-              image: AssetImage('assets/back buttom.png'),
-             fit: BoxFit.cover,
-        ),
+              image: AssetImage('assets/images/back buttom.png'),
+              fit: BoxFit.cover,
+            ),
             padding: EdgeInsets.all(0),
             onPressed: () {
               Navigator.pop(context, HomeScreen());
             },
-
           ),
           toolbarHeight: 70,
           backgroundColor: Colors.transparent,
@@ -50,16 +49,20 @@ class CarServices extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               children: [
                 homeItem(
-                    image: AssetImage('assets/images/fefedwdw.png'), text: 'CAR WASH'),
+                    image: AssetImage('assets/images/fefedwdw.png'),
+                    text: 'CAR WASH'),
                 homeItem(
                     image: AssetImage('assets/images/fefe.png'),
                     text: 'Battery Charge'),
                 homeItem(
-                    image: AssetImage('assets/images/cece.png'), text: 'TYRE CHECK'),
+                    image: AssetImage('assets/images/cece.png'),
+                    text: 'TYRE CHECK'),
                 homeItem(
-                    image: AssetImage('assets/images/11.png'), text: 'CAR PAINTING'),
+                    image: AssetImage('assets/images/11.png'),
+                    text: 'CAR PAINTING'),
                 homeItem(
-                    image: AssetImage('assets/images/Untitled-8.png'), text: 'FUEL'),
+                    image: AssetImage('assets/images/Untitled-8.png'),
+                    text: 'FUEL'),
               ],
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

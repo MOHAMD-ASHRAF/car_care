@@ -12,12 +12,12 @@ void main() async {
   DioHelper.init();
   await CacheHelper.init();
   BlocOverrides.runZoned(
-        () {
-          runApp(MyApp());
+    () {
+      runApp(MyApp());
     },
     blocObserver: MyBlocObserver(),
   );
- // runApp(MyApp());
+  // runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(),
       ),
       home: AnimatedSplashScreen(
-        splash: Image.asset('assets/trs.png'),
+        splash: Image.asset('assets/images/trs.png'),
         nextScreen: OnBoardingScreen(),
         splashTransition: SplashTransition.decoratedBoxTransition,
       ),

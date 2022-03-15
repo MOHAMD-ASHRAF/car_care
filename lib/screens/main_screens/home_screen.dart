@@ -35,13 +35,16 @@ class HomeScreen extends StatelessWidget {
             MaterialButton(
               minWidth: 10,
               height: 10,
-              onPressed: (){
+              onPressed: () {
                 navigateTo(context, ProfileScreen());
               },
               child: CircleAvatar(
                 radius: 20,
-                backgroundImage:NetworkImage('https://vid.alarabiya.net/images/2020/01/07/b2fd1b6e-2a72-4038-b86b-985993fd4479/b2fd1b6e-2a72-4038-b86b-985993fd4479_16x9_1200x676.png?width=1138',),
-              ),)
+                backgroundImage: NetworkImage(
+                  'https://vid.alarabiya.net/images/2020/01/07/b2fd1b6e-2a72-4038-b86b-985993fd4479/b2fd1b6e-2a72-4038-b86b-985993fd4479_16x9_1200x676.png?width=1138',
+                ),
+              ),
+            )
           ],
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -76,7 +79,7 @@ class HomeScreen extends StatelessWidget {
                       navigateTo(context, SpareScreen());
                     }),
                 homeItem(
-                    image: AssetImage('assets/lolo.png'),
+                    image: AssetImage('assets/images/lolo.png'),
                     text: 'PARKING',
                     function: () {
                       navigateTo(context, BarkingScreen());
@@ -88,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                       navigateTo(context, BuySellScreen());
                     }),
                 homeItem(
-                    image: AssetImage('assets/Untitled-4.png'),
+                    image: AssetImage('assets/images/Untitled-4.png'),
                     text: 'CAR SERVICES',
                     function: () {
                       navigateTo(context, CarServices());
@@ -104,9 +107,9 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget homeItem(
-      {required AssetImage image,
-        required String text,
-        GestureTapCallback? function}) =>
+          {required AssetImage image,
+          required String text,
+          GestureTapCallback? function}) =>
       InkWell(
         onTap: function,
         child: Column(
