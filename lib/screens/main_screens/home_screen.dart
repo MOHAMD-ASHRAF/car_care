@@ -8,8 +8,6 @@ import '../recovery/recovery_screen.dart';
 import '../spare_parts/spare_screen.dart';
 import '../../shared/constants/app_colors.dart';
 import '../../shared/constants/drawer_widget.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
