@@ -1,3 +1,4 @@
+import 'package:car_care/screens/login/cubit/google_login_cubit.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,20 +9,27 @@ import '../main_screens/home_screen.dart';
 import '../sing_up/sing_up._screen.dart';
 import 'cubit/login_cubit.dart';
 
-class  LoginScreen extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final isKeyboard = MediaQuery.of(context).viewInsets.bottom !=0;
+    final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     bool? checked = false;
-    return BlocProvider(
-      create: (BuildContext context) => LoginCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginCubit>(
+          create: (BuildContext context) => LoginCubit(),
+        ),
+        BlocProvider<GoogleSign>(
+          create: (BuildContext context) => GoogleSign(LoginInitialState),
+        ),
+      ],
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
-          if(state is LoginSuccessState){
-            if(state.loginModel.status.toString() =='success'){
+          if (state is LoginSuccessState) {
+            if (state.loginModel.status.toString() == 'success') {
               print(state.loginModel.status);
               print(state.loginModel.token);
               Fluttertoast.showToast(
@@ -31,10 +39,9 @@ class  LoginScreen extends StatelessWidget {
                   timeInSecForIosWeb: 1,
                   backgroundColor: Colors.green,
                   textColor: Colors.white,
-                  fontSize: 16.0
-              );
-          navigateAndFinish(context, HomeScreen());
-              }else{
+                  fontSize: 16.0);
+              navigateAndFinish(context, HomeScreen());
+            } else {
               print(state.loginModel.status);
               Fluttertoast.showToast(
                   msg: state.loginModel.message!,
@@ -43,14 +50,13 @@ class  LoginScreen extends StatelessWidget {
                   timeInSecForIosWeb: 1,
                   backgroundColor: Colors.red,
                   textColor: Colors.white,
-                  fontSize: 16.0
-              );
+                  fontSize: 16.0);
             }
           }
         },
         builder: (context, state) {
           return GestureDetector(
-            onTap: (){
+            onTap: () {
               FocusScope.of(context).unfocus();
             },
             child: Scaffold(
@@ -69,8 +75,7 @@ class  LoginScreen extends StatelessWidget {
                             SizedBox(
                               height: 320,
                             ),
-                            if(!isKeyboard)
-                              buildLogo(),
+                            if (!isKeyboard) buildLogo(),
                             SizedBox(
                               height: 15,
                             ),
@@ -93,7 +98,9 @@ class  LoginScreen extends StatelessWidget {
                                       // height: 45,
                                       typeOfInput: TextInputType.emailAddress,
                                       validate: (value) {
-                                        if (value!.isEmpty || !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}').hasMatch(value)){
+                                        if (value!.isEmpty ||
+                                            !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}')
+                                                .hasMatch(value)) {
                                           return 'Enter correct email';
                                         }
                                         return null;
@@ -108,21 +115,23 @@ class  LoginScreen extends StatelessWidget {
                                     height: 5,
                                   ),
                                   defaultField(
-                                      onSubmitted: (value){
+                                      onSubmitted: (value) {
                                         if (formKey.currentState!.validate()) {
                                           LoginCubit.get(context).getUserOne(
                                               email: emailController.text,
-                                              password: passwordController.text
-                                          );
+                                              password:
+                                                  passwordController.text);
                                         }
                                       },
-                                      obscureText: LoginCubit.get(context).isPassword,
+                                      obscureText:
+                                          LoginCubit.get(context).isPassword,
                                       controller: passwordController,
                                       //width: double.infinity,
                                       typeOfInput: TextInputType.emailAddress,
                                       suffix: LoginCubit.get(context).suffix,
-                                      suffixPressed: (){
-                                        LoginCubit.get(context).changePasswordVisibility();
+                                      suffixPressed: () {
+                                        LoginCubit.get(context)
+                                            .changePasswordVisibility();
                                       },
                                       validate: (value) {
                                         if (value!.isEmpty) {
@@ -136,7 +145,8 @@ class  LoginScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       Checkbox(
-                                          value: checked, onChanged: (value) {}),
+                                          value: checked,
+                                          onChanged: (value) {}),
                                       Text('Remember Me',
                                           style: TextStyle(
                                             color: Colors.grey[500],
@@ -156,12 +166,16 @@ class  LoginScreen extends StatelessWidget {
                                           colorText: Colors.white,
                                           text: 'Log in',
                                           function: () {
-                                            if (formKey.currentState!.validate()) {
-                                              LoginCubit.get(context).getUserOne(
-                                                  email: emailController.text,
-                                                  password: passwordController.text
-                                              );
-                                            }//navigateTo(context, HomeScreen());
+                                            if (formKey.currentState!
+                                                .validate()) {
+                                              LoginCubit.get(context)
+                                                  .getUserOne(
+                                                      email:
+                                                          emailController.text,
+                                                      password:
+                                                          passwordController
+                                                              .text);
+                                            } //navigateTo(context, HomeScreen());
                                           }),
                                       condition: state is! LoginLodingState,
                                       fallback: (context) => Center(
@@ -170,6 +184,13 @@ class  LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(height: 30),
+                                  GestureDetector(
+                                    child: Text('GoogleSignIn'),
+                                    onTap: () {
+                                      GoogleSign(LoginInitialState)
+                                          .googleLogin();
+                                    },
+                                  ),
                                   Row(
                                     children: [
                                       TextButton(
@@ -178,7 +199,8 @@ class  LoginScreen extends StatelessWidget {
                                           },
                                           child: Text(
                                             'Sing UP',
-                                            style: TextStyle(color: Colors.black),
+                                            style:
+                                                TextStyle(color: Colors.black),
                                           )),
                                       Spacer(),
                                       TextButton(
@@ -210,21 +232,23 @@ class  LoginScreen extends StatelessWidget {
 }
 
 Widget backGround() => Container(
-  width: double.infinity,
-  height: double.infinity,
-  child: Image(image: AssetImage('assets/images/3.png'),fit: BoxFit.cover,)
-    );
+    width: double.infinity,
+    height: double.infinity,
+    child: Image(
+      image: AssetImage('assets/images/3.png'),
+      fit: BoxFit.cover,
+    ));
 
 Widget defaultText({required String text}) => Text(text,
     style: TextStyle(
       color: Colors.grey[500],
       fontSize: 16,
     ));
-Widget buildLogo({final urlLogo =
-'assets/images/logo.png'})  => Container(
-    width: double.infinity,
-    height: 150,
-   child:Image(image: AssetImage(urlLogo),fit: BoxFit.cover,),
-  );
-
-
+Widget buildLogo({final urlLogo = 'assets/images/logo.png'}) => Container(
+      width: double.infinity,
+      height: 150,
+      child: Image(
+        image: AssetImage(urlLogo),
+        fit: BoxFit.cover,
+      ),
+    );
