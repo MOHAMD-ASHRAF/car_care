@@ -2,13 +2,16 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:bloc/bloc.dart';
 import 'package:car_care/screens/onBoarding/onbording_screen.dart';
 import 'package:car_care/shared/constants/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'bloc_observer.dart';
 import 'network/local/cache_helper.dart';
 import 'network/remote/dio_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   DioHelper.init();
   await CacheHelper.init();
   BlocOverrides.runZoned(

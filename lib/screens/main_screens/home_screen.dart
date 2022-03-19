@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                     image: AssetImage('assets/images/Untitled-2.png'),
                     text: 'BUY % SELL',
                     function: () {
-                      navigateTo(context, BuySellScreen());
+                      navigateTo(context, BuySell());
                     }),
                 homeItem(
                     image: AssetImage('assets/images/Untitled-4.png'),
