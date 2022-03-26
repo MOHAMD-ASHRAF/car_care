@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 Widget defaultButton({
   required double width,
+   double height=30,
   required Color color,
   required Color colorText,
   required String text,
@@ -9,7 +10,7 @@ Widget defaultButton({
 
 })=> Container(
   width: width,
-  height: 30,
+  height: height,
   decoration: BoxDecoration(
     color: color,
     borderRadius: BorderRadius.circular(7),

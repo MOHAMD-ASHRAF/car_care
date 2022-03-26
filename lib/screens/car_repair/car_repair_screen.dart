@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '../../shared/components/default_button.dart';
 import '../../shared/constants/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -41,41 +43,38 @@ class CarRepairScreen extends StatelessWidget {
                 bottomLeft: Radius.circular(7),
                 bottomRight: Radius.circular(7)),
             gradient: LinearGradient(
-              colors: [Colors.yellow,Colors.red],
+              colors: [appPrimaryColor,Colors.red],
               begin: Alignment.bottomRight,
               end: Alignment.bottomLeft,
             ),
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: ListView.separated(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            separatorBuilder:(context, index) => SizedBox(height: 15,),
-            itemCount: 20,
-            itemBuilder:(context, index) => buildListViewItem(context),
-          ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 20,right: 20,left: 20),
+        child: ListView.separated(
+          scrollDirection: Axis.vertical,
+          physics: BouncingScrollPhysics(),
+          shrinkWrap: true,
+          separatorBuilder:(context, index) => SizedBox(height: 20,),
+          itemCount: 20,
+          itemBuilder:(context, index) => buildListViewItem(context),
         ),
       ),
     );
   }
 }
 
-Widget buildListViewItem(context)=>InkWell(
-  onTap: (){
-    navigateTo(context, CarRepairDetailsScreen());
-  },
-  child:   Container(
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.grey[300],
-        border: Border.all(color: Colors.transparent,)
-    ),
+Widget buildListViewItem(context)=>Container(
+  child:Material(
+    elevation: 7,
+     shadowColor: appPrimaryColor,
+     color: Colors.white,
+    borderRadius: BorderRadius.circular(16),
     child: ListTile(
+      onTap: (){
+        navigateTo(context, CarRepairDetailsScreen());
+      },
       dense: true,
       leading: Stack(
         alignment: AlignmentDirectional.center,
@@ -97,6 +96,7 @@ Widget buildListViewItem(context)=>InkWell(
         maxLines: 1,),
       subtitle: Text('Car Repair',style: TextStyle(fontSize: 15)),
       trailing: Icon(Icons.remove_red_eye_outlined , color:appPrimaryColor, size: 30,),
+
     ),
   ),
 );
