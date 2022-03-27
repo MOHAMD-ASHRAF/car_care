@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
               ),
               home: AnimatedSplashScreen(
                 splash: Lottie.asset('assets/animation/gears.json'),
-                nextScreen: HomeScreen(),
+                nextScreen: OnBoardingScreen(),
                 splashTransition: SplashTransition.decoratedBoxTransition,
               ),
             );

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/components/contact.dart';
@@ -91,7 +92,7 @@ class CarRepairDetailsScreen extends StatelessWidget {
             child: defaultButton(
               height: 50,
               text: 'Contact Information', colorText: Colors.white, color: appPrimaryColor, width: 200,function: (){
-              openDialog(context);
+              openModel(context);
             }
             )
         ),
@@ -172,42 +173,44 @@ Future openDialog(context) =>showDialog(
 
 
 
-Future openSheet(context)=> showModalBottomSheet(
+Future openModel(context)=> showModalBottomSheet(
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.only(topLeft: Radius.circular(20) ,topRight: Radius.circular(20) ),
+  ),
     context: context,
-    builder: (context) => Column(
-      children: [
-        Container(
-          height: 80,
-          child: Column(
-            children: [
-              InkWell(
-                onTap: (){
-                  whatsappLink(context: context, phone: '+201022953656',);
-                },
-                child: Row(
-                  children: [
-                    Icon(Icons.whatsapp ,color: Colors.green,),
-                    SizedBox(width: 10,),
-                    Text('whats'),
-                  ],
-                ),
+    builder: (context) => Container(
+      height: 130,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            InkWell(
+              onTap: (){
+                whatsappLink(context: context, phone: '+201022953656',);
+              },
+              child: Row(
+                children: [
+                  Icon(Icons.whatsapp ,color: Colors.green,size: 30,),
+                  SizedBox(width: 10,),
+                  Text('whats',style: TextStyle(fontSize: 20),),
+                ],
               ),
-              SizedBox(height: 20,),
-              InkWell(
-                onTap: (){
-                  messengerLink(userName: 'mohamedhossam.mohamed.3', context: context);
-                },
-                child: Row(
-                  children: [
-                    Icon(Icons.facebook ,color: Colors.pink,),
-                    SizedBox(width: 10,),
-                    Text('messanger'),
-                  ],
-                ),
+            ),
+            SizedBox(height: 20,),
+            InkWell(
+              onTap: (){
+                messengerLink(userName: 'mohamedhossam.mohamed.3', context: context);
+              },
+              child: Row(
+                children: [
+                  Icon(Icons.facebook ,color: Colors.pink,size: 30,),
+                  SizedBox(width: 10,),
+                  Text('messanger',style: TextStyle(fontSize: 20),),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      ),
     )
 );

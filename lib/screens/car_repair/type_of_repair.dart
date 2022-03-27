@@ -53,7 +53,7 @@ Widget buildItem({
   required AssetImage image,
   required String text,
   GestureTapCallback? function}) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 2),
+    padding: const EdgeInsets.symmetric(vertical: 2,horizontal: 2),
     child: InkWell(
     onTap: function,
     child: Stack(
