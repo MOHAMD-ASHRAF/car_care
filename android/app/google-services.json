@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "926481134512",
+    "project_id": "car-care-99e63",
+    "storage_bucket": "car-care-99e63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926481134512:android:be17ae75b2ccf4f0bc9c75",
+        "android_client_info": {
+          "package_name": "com.example.car_care"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "926481134512-prqmo4m6etp3jgggordnngcffem3cfar.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.car_care",
+            "certificate_hash": "0ff813476c5d87e1843665826f2677df479ba8fe"
+          }
+        },
+        {
+          "client_id": "926481134512-sv3oaacc59k07h37ni0tgg0bgerbsdi8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzQs2gMJu23Nd_aWlAvsVLKboAG2VpvHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "926481134512-sv3oaacc59k07h37ni0tgg0bgerbsdi8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

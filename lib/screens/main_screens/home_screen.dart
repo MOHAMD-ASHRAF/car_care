@@ -96,7 +96,6 @@ class HomeScreen extends StatelessWidget {
                           image: AssetImage('assets/images/Untitled-2.png'),
                           text: 'BUY % SELL',
                           function: () {
-                            navigateTo(context, BuySellScreen());
                           }),
                       homeItem(
                           image: AssetImage('assets/images/Untitled-4.png'),
@@ -114,12 +113,100 @@ class HomeScreen extends StatelessWidget {
               ));
         },
     );
+
+    return Scaffold(
+        drawer: DrawerWidget(),
+        appBar: AppBar(
+          toolbarHeight: 70,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          centerTitle: true,
+          title: Text(
+            'Home Screen',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          actions: [
+            MaterialButton(
+              minWidth: 10,
+              height: 10,
+              onPressed: () {
+                navigateTo(context, ProfileScreen());
+              },
+              child: CircleAvatar(
+                radius: 20,
+                backgroundImage: NetworkImage(
+                  'https://vid.alarabiya.net/images/2020/01/07/b2fd1b6e-2a72-4038-b86b-985993fd4479/b2fd1b6e-2a72-4038-b86b-985993fd4479_16x9_1200x676.png?width=1138',
+                ),
+              ),
+            )
+          ],
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(7),
+                  bottomRight: Radius.circular(7)),
+              color: appPrimaryColor,
+            ),
+          ),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: GridView(
+              physics: BouncingScrollPhysics(),
+              children: [
+                homeItem(
+                    image: AssetImage('assets/images/Untitled-6.png'),
+                    text: 'CAE REPAIR',
+                    function: () {
+                    }),
+                homeItem(
+                    image: AssetImage('assets/images/Untitled-7.png'),
+                    text: 'RECOVERY',
+                    function: () {
+                      navigateTo(context, RecoveryScreen());
+                    }),
+                homeItem(
+                    image: AssetImage('assets/images/Untitled-5.png'),
+                    text: 'SPARE PARTS',
+                    function: () {
+                      navigateTo(context, SpareScreen());
+                    }),
+                homeItem(
+                    image: AssetImage('assets/images/lolo.png'),
+                    text: 'PARKING',
+                    function: () {
+                      navigateTo(context, BarkingScreen());
+                    }),
+                homeItem(
+                    image: AssetImage('assets/images/Untitled-2.png'),
+                    text: 'BUY % SELL',
+                    function: () {
+                      navigateTo(context, BuySell());
+                    }),
+                homeItem(
+                    image: AssetImage('assets/images/Untitled-4.png'),
+                    text: 'CAR SERVICES',
+                    function: () {
+                      navigateTo(context, CarServices());
+                    }),
+              ],
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 20,
+                childAspectRatio: 0.75,
+                crossAxisSpacing: 20,
+              )),
+        ));
   }
 
   Widget homeItem(
-      {required AssetImage image,
-        required String text,
-        GestureTapCallback? function}) =>
+          {required AssetImage image,
+          required String text,
+          GestureTapCallback? function}) =>
       InkWell(
         onTap: function,
         child: Column(
