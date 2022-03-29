@@ -11,15 +11,7 @@ class AppCubit extends Cubit<AppState> {
 
   static AppCubit get(context) => BlocProvider.of(context);
 
-
-
-
-
-
-
-
-
-   File? profileImage;
+  File? profileImage;
   var picker =ImagePicker();
 
 

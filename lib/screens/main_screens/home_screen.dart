@@ -2,10 +2,8 @@ import 'package:car_care/cubit/app_state.dart';
 import 'package:car_care/cubit/cubit.dart';
 import 'package:car_care/screens/car_repair/type_of_repair.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../shared/components/default_button.dart';
 import '../buy_sell/buy_sell_screen.dart';
-import '../car_repair/car_repair_screen.dart';
 import '../car_service/car_service.dart';
 import '../parking/parking_screen.dart';
 import '../profile/profile_screen.dart';
@@ -13,8 +11,6 @@ import '../recovery/recovery_screen.dart';
 import '../spare_parts/spare_screen.dart';
 import '../../shared/constants/app_colors.dart';
 import '../../shared/constants/drawer_widget.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -59,7 +55,11 @@ class HomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(7),
                         bottomRight: Radius.circular(7)),
-                    color: appPrimaryColor,
+                     gradient: LinearGradient(
+                    colors: [appPrimaryColor,Colors.red],
+                    begin: Alignment.bottomRight,
+                    end: Alignment.bottomLeft,
+                  ),
                   ),
                 ),
               ),
