@@ -10,6 +10,7 @@ import '../sing_up/sing_up._screen.dart';
 import 'cubit/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
+
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -90,12 +91,11 @@ class LoginScreen extends StatelessWidget {
                                       style: TextStyle(
                                         color: Colors.grey[800],
                                         fontSize: 16,
-                                      )),
+                                      ),
+                                  ),
                                   SizedBox(height: 5),
                                   defaultField(
                                       controller: emailController,
-                                      // width: double.infinity,
-                                      // height: 45,
                                       typeOfInput: TextInputType.emailAddress,
                                       validate: (value) {
                                         if (value!.isEmpty ||
@@ -175,7 +175,7 @@ class LoginScreen extends StatelessWidget {
                                                       password:
                                                           passwordController
                                                               .text);
-                                            } //navigateTo(context, HomeScreen());
+                                            }
                                           }),
                                       condition: state is! LoginLodingState,
                                       fallback: (context) => Center(

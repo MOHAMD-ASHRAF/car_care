@@ -7,6 +7,7 @@ import '../../network/local/cache_helper.dart';
 import '../../shared/components/form_field.dart';
 import '../../shared/constants/app_colors.dart';
 import '../login/login_screen.dart';
+import '../user_or_worker/user_or_worker_screen.dart';
 
 class BoardingModel{
   final String image;
@@ -53,7 +54,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       if(value){
         navigateAndFinish(
             context,
-            LoginScreen());
+            UserOrWorkerScreen());
       }
     });
   }
