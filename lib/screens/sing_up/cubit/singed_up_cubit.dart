@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../model/singed_up_model.dart';
 import '../../../network/end_point.dart';
+import '../../../network/local/cache_helper.dart';
 import '../../../network/remote/dio_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'singed_up_state.dart';
@@ -33,11 +34,12 @@ class SingedUpCubit extends Cubit<SingedUpState>
       print(response.statusCode);
       late SingedUpModel singedUpModel;
       singedUpModel= SingedUpModel.fromJson(response.data);
+      CacheHelper.saveData(key: 'idNumber', value: response.data['user']['_id']);
+      print(response.data['_id']);
       emit(SingedUpSuccessState(singedUpModel));
     }on DioError catch(e){
       debugPrint("${e.response!.data}");
       debugPrint("${e.response!.statusCode}");
-      // print(e.response!.data);
       singedUpModel= SingedUpModel.fromJson(e.response!.data);
       emit(SingedUpSuccessState(singedUpModel));
     }

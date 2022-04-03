@@ -1,5 +1,6 @@
 
 import 'package:car_care/model/login_model.dart';
+import 'package:car_care/network/local/cache_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../../../network/end_point.dart';
@@ -31,6 +32,7 @@ class LoginCubit extends Cubit<LoginState>
       print(loginModel.user!.name);
       print(loginModel.user!.email);
       print(loginModel.user!.id);
+
       emit(LoginSuccessState(loginModel));
     }).catchError((error) {
       emit(LoginErrorState(error.toString()));
@@ -51,9 +53,12 @@ class LoginCubit extends Cubit<LoginState>
       var response = await DioHelper.postData(
         data: {'email': email, 'password': password}, url: LOGIN,
       );
+
       print(response.data);
       print(response.statusCode);
       loginModel= LoginModel.fromJson(response.data);
+      CacheHelper.saveData(key: 'idNumber', value: response.data['user']['_id']);
+      print(response.data['_id']);
       emit(LoginSuccessState(loginModel));
     }on DioError catch(e){
       debugPrint("${e.response!.data}");

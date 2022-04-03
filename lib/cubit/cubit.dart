@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:car_care/model/login_model.dart';
+import 'package:car_care/network/local/cache_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import '../model/get_user_data_model.dart';
 import '../model/worker_login_model.dart';
 import '../model/worker_register_model.dart';
 import '../network/end_point.dart';
@@ -22,7 +25,6 @@ class AppCubit extends Cubit<AppState> {
   late WorkerRegisterModel workerRegisterModel;
 
 
-
   Future<void> getProfileImageFromGallery(BuildContext context) async{
     final pikedFile = await picker.pickImage(source: ImageSource.gallery);
      if (pikedFile != null){
@@ -37,7 +39,6 @@ class AppCubit extends Cubit<AppState> {
   }
 
 
-
   Future<void> getProfileImageFromCamera(BuildContext context) async{
     final pikedFile = await picker.pickImage(source: ImageSource.camera);
     if (pikedFile != null){
@@ -50,16 +51,6 @@ class AppCubit extends Cubit<AppState> {
       emit(ProfileImagePikerErrorState());
     }
   }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -90,14 +81,6 @@ class AppCubit extends Cubit<AppState> {
       emit(WorkerLoginErrorState(e.toString()));
     }
   }
-
-
-
-
-
-
-
-
 
 
   void workerRegister({
@@ -134,7 +117,28 @@ class AppCubit extends Cubit<AppState> {
 
 
 
+GetUserFromId? userModel;
 
+  LoginModel? loginModel;
+void getUserData()
+{
+  emit(UserDataLoadingState());
+  String idNumber =CacheHelper.getData(key: 'idNumber');
+  print(idNumber);
+  DioHelper.getData(url: GET_USER_DATA + idNumber).then(
+          (value) {
+            userModel = GetUserFromId.fromJson(value.data);
+            print(userModel!.user!.name);
+            print(userModel!.user!.sId);
+            emit(UserDataSuccessState(
+                userModel!
+            ));
+          }
+  ).catchError((error){
+    emit((UserDataErrorState(error.toString())));
+    print(error.toString());
+  });
+}
 
 
 

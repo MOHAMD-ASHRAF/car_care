@@ -7,8 +7,10 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../../network/local/cache_helper.dart';
 import '../../shared/components/default_button.dart';
 import '../../shared/components/form_field.dart';
+import '../../shared/components/toast.dart';
 import '../main_screens/home_screen.dart';
 import '../sing_up/sing_up._screen.dart';
 
@@ -26,27 +28,22 @@ class WorkerLoginScreen extends StatelessWidget {
       listener: (context,state) {
         if (state is WorkerLoginSuccessState) {
           if (state.workerloginModel.status.toString() == 'success') {
+            CacheHelper.saveData(key: 'token', value: state.workerloginModel.token).then((value) {
+              navigateAndFinish(context, HomeScreen());
+            });
             print(state.workerloginModel.status);
            print(state.workerloginModel.token);
-            Fluttertoast.showToast(
-                msg: state.workerloginModel.message!,
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.green,
-                textColor: Colors.white,
-                fontSize: 16.0);
-            navigateAndFinish(context, HomeScreen());
+            showToast(
+              text: state.workerloginModel.message!,
+              state: ToastStates.SUCCESS,
+            );
+            // navigateAndFinish(context, HomeScreen());
           } else {
             print(state.workerloginModel.status);
-            Fluttertoast.showToast(
-                msg: state.workerloginModel.message!,
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0);
+            showToast(
+              text: state.workerloginModel.message!,
+              state: ToastStates.ERROR,
+            );
           }
         }
       },

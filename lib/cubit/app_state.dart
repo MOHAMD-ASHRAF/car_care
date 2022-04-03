@@ -1,5 +1,5 @@
 
-
+import '../model/get_user_data_model.dart';
 import '../model/worker_login_model.dart';
 import '../model/worker_register_model.dart';
 
@@ -11,13 +11,6 @@ class ProfileImagePikerSuccessState extends AppState {}
 
 class ProfileImagePikerErrorState extends AppState {}
 
-
-
-
-
-
-
-
 class WorkerLoginLoadingState extends AppState {}
 class WorkerLoginSuccessState extends AppState {
   final WorkerLoginModel workerloginModel;
@@ -28,8 +21,6 @@ class WorkerLoginErrorState extends AppState {
   WorkerLoginErrorState(this.error);
 }
 
-
-
 class WorkerRegisterLoadingState extends AppState {}
 class WorkerRegisterSuccessState extends AppState {
   final WorkerRegisterModel workerRegisterModel;
@@ -38,5 +29,19 @@ class WorkerRegisterSuccessState extends AppState {
 class WorkerRegisterErrorState extends AppState {
   final String error;
   WorkerRegisterErrorState(this.error);
+}
+
+
+
+
+
+class UserDataLoadingState extends AppState {}
+class UserDataSuccessState extends AppState {
+  final GetUserFromId userModel;
+  UserDataSuccessState(this.userModel);
+}
+class UserDataErrorState extends AppState {
+  final String error;
+  UserDataErrorState(this.error);
 }
 

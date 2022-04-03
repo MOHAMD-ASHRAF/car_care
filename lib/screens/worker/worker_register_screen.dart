@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../shared/components/default_button.dart';
 import '../../shared/components/form_field.dart';
+import '../../shared/components/toast.dart';
 import '../main_screens/home_screen.dart';
 import '../sing_up/sing_up._screen.dart';
 
@@ -32,25 +33,17 @@ class WorkerRegisterScreen extends StatelessWidget {
         if (state is WorkerRegisterSuccessState) {
           if (state.workerRegisterModel.status == 'success') {
             print(state.workerRegisterModel.name);
-            Fluttertoast.showToast(
-                msg: 'welcome you in our application',
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.green,
-                textColor: Colors.white,
-                fontSize: 16.0);
+            showToast(
+              text: state.workerRegisterModel.message,
+              state: ToastStates.SUCCESS,
+            );
             navigateAndFinish(context, HomeScreen());
           } else {
             print('${state.workerRegisterModel.message}');
-            Fluttertoast.showToast(
-                msg: state.workerRegisterModel.message.toString(),
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0);
+            showToast(
+              text: state.workerRegisterModel.message,
+              state: ToastStates.ERROR,
+            );
           }
         }
       },
