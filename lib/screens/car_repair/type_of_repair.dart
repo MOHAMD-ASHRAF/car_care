@@ -3,13 +3,41 @@ import 'package:flutter/material.dart';
 
 import '../../shared/components/default_button.dart';
 import '../../shared/constants/app_colors.dart';
+import 'list_of_car_repair/another.dart';
+import 'list_of_car_repair/electronic.dart';
+import 'list_of_car_repair/motor.dart';
 
 class TypeOfRepair extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        toolbarHeight: 70,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          'Select',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(7),
+                bottomRight: Radius.circular(7)),
+            gradient: LinearGradient(
+              colors: [appPrimaryColor,Colors.red],
+              begin: Alignment.bottomRight,
+              end: Alignment.bottomLeft,
+            ),
+          ),
+        ),
+      ),
       body:  SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
@@ -18,19 +46,19 @@ class TypeOfRepair extends StatelessWidget {
                 image: AssetImage('assets/images/motor.jpg'),
                 text: 'motor',
                 function: () {
-                  navigateTo(context, CarRepairScreen());
+                  navigateTo(context, MotorRepairScreen ());
                 }),
             buildItem(
                 image: AssetImage('assets/images/electronic.jpg'),
                 text: 'electronic',
                 function: () {
-                  navigateTo(context, CarRepairScreen());
+                  navigateTo(context, ElectronicRepairScreen());
                 }),
             buildItem(
                 image: AssetImage('assets/images/car_inside.jpg'),
-                text: 'inside',
+                text: 'Another',
                 function: () {
-                  navigateTo(context, CarRepairScreen());
+                  navigateTo(context, AnotherRepairScreen());
                 }),
           ],
         ),

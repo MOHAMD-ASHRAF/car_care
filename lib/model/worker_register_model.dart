@@ -5,8 +5,8 @@ class WorkerRegisterModel{
   String? password;
   String? confirmPassword;
   String? phone;
-  String? idNumber;
   Location? location;
+  String? specialized;
   late String message;
   WorkerRegisterModel.fromJson(Map<String,dynamic> json){
     name = json['name'];
@@ -16,7 +16,7 @@ class WorkerRegisterModel{
     phone = json['phone'];
     message =json['message'];
     status = json['status'];
-    idNumber = json['IDNumber'];
+    specialized = json['specialized'];
     location = json['location'] != null  ?new Location.fromJson(json['location']): null;
   }
 }

@@ -1,5 +1,6 @@
 
 import '../model/get_user_data_model.dart';
+import '../model/get_worker_model.dart';
 import '../model/worker_login_model.dart';
 import '../model/worker_register_model.dart';
 
@@ -45,3 +46,52 @@ class UserDataErrorState extends AppState {
   UserDataErrorState(this.error);
 }
 
+
+
+class WorkerDataLoadingState extends AppState {}
+class WorkerDataSuccessState extends AppState {
+  final getWorkerModel;
+  WorkerDataSuccessState(this.getWorkerModel);
+}
+class WorkerDataErrorState extends AppState {
+  final String error;
+  WorkerDataErrorState(this.error);
+}
+
+
+
+class ElectronicWorkerDataLoadingState extends AppState {}
+class ElectronicWorkerDataSuccessState extends AppState {
+  final getElectronicWorkerModel;
+  ElectronicWorkerDataSuccessState(this.getElectronicWorkerModel);
+}
+class ElectronicWorkerDataErrorState extends AppState {
+  final String error;
+  ElectronicWorkerDataErrorState(this.error);
+}
+
+
+
+
+class MotorWorkerDataLoadingState extends AppState {}
+class  MotorWorkerDataSuccessState extends AppState {
+  final getMotorWorkerModel;
+  MotorWorkerDataSuccessState(this.getMotorWorkerModel);
+}
+class  MotorWorkerDataErrorState extends AppState {
+  final String error;
+  MotorWorkerDataErrorState(this.error);
+}
+
+
+
+
+class AnotherWorkerDataLoadingState extends AppState {}
+class  AnotherWorkerDataSuccessState extends AppState {
+  final getAnotherWorkerModel;
+  AnotherWorkerDataSuccessState(this.getAnotherWorkerModel);
+}
+class  AnotherWorkerDataErrorState extends AppState {
+  final String error;
+  AnotherWorkerDataErrorState(this.error);
+}

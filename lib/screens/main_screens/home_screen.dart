@@ -3,6 +3,7 @@ import 'package:car_care/cubit/cubit.dart';
 import 'package:car_care/screens/car_repair/type_of_repair.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../shared/components/default_button.dart';
 import '../buy_sell/buy_sell_screen.dart';
 import '../car_service/car_service.dart';
@@ -15,9 +16,16 @@ import '../../shared/constants/drawer_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+
+  final urlImage= [
+    'https://bloomerang.co/wp-content/uploads/2016/10/bmw-header.png',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Fkwuze97T8a6bsYiG-KMdL6bplKciuk12g&usqp=CAU',
+    'https://www.izmostock.com/wp-content/uploads/2018/04/izmostock_MainBanner_05.jpg',
+  ];
+  var boardController = PageController();
   @override
   Widget build(BuildContext context) {
+
     return BlocConsumer<AppCubit,AppState>(
          listener: (context, state){},
         builder: (context,state){
@@ -65,17 +73,22 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               body: SingleChildScrollView(
+                controller: boardController,
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
-                    CarouselSlider(
-                      items: [
-                        Image(image: NetworkImage('https://bloomerang.co/wp-content/uploads/2016/10/bmw-header.png'),fit: BoxFit.cover),
-                        Image(image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Fkwuze97T8a6bsYiG-KMdL6bplKciuk12g&usqp=CAU'),fit: BoxFit.cover),
-                        Image(image: NetworkImage('https://www.izmostock.com/wp-content/uploads/2018/04/izmostock_MainBanner_05.jpg'),fit: BoxFit.cover),
-                      ],
+                    SizedBox(height:  10,),
+                    CarouselSlider.builder(
+                      itemCount: urlImage.length,
+                      itemBuilder: (context,index,realIndex){
+                        final item = urlImage[index];
+
+                        return buildImage(item, index);
+                      },
                         options: CarouselOptions(
-                          height: 150,
+                          pauseAutoPlayInFiniteScroll: false,
+                          enlargeCenterPage: true,
+                          height: 180,
                           initialPage: 0,
                           viewportFraction: 1,
                           enableInfiniteScroll: true,
@@ -176,3 +189,14 @@ class HomeScreen extends StatelessWidget {
         ),
       );
 }
+
+
+
+Widget buildImage(String urlImage , int index) => Container(
+  margin: EdgeInsets.symmetric(horizontal: 24),
+  child: Image.network(urlImage,fit: BoxFit.cover,),
+    decoration: BoxDecoration(
+      color: Colors.grey,
+    borderRadius: BorderRadius.circular(200),
+ ),
+);

@@ -1,16 +1,21 @@
 import 'dart:io';
 
+import 'package:car_care/model/electronic_worker_model.dart';
+import 'package:car_care/model/get_worker_model.dart';
 import 'package:car_care/model/login_model.dart';
 import 'package:car_care/network/local/cache_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import '../model/another_worker_model.dart';
 import '../model/get_user_data_model.dart';
+import '../model/motor_worker_model.dart';
 import '../model/worker_login_model.dart';
 import '../model/worker_register_model.dart';
 import '../network/end_point.dart';
 import '../network/remote/dio_helper.dart';
+import '../shared/constants/constant.dart';
 import 'app_state.dart';
 
 class AppCubit extends Cubit<AppState> {
@@ -71,7 +76,7 @@ class AppCubit extends Cubit<AppState> {
 
     }on DioError catch(e){
       debugPrint("${e.response!.data}");
-      debugPrint("${e.response!.statusCode}hhhhhh");
+      debugPrint("${e.response!.statusCode}");
       // print(e.response!.data);
       workerLoginModel= WorkerLoginModel.fromJson(e.response!.data);
       emit(WorkerLoginSuccessState(workerLoginModel));
@@ -89,16 +94,17 @@ class AppCubit extends Cubit<AppState> {
     required String password,
     required String confirmPassword,
     required String phone,
-    required String idNumber,
     required String location,
+    required String specialized,
   }) async{
     emit(WorkerRegisterLoadingState());
     try{
       var response = await DioHelper.postData(
-        data: {'email': email, 'password': password , 'name' : name , 'confirmPassword': confirmPassword , 'phone' : phone , 'IDNumber' : idNumber , 'location':  location }, url: WORKER_REGISTER,
+        data: {'email': email, 'password': password , 'name' : name , 'confirmPassword': confirmPassword , 'phone' : phone , 'location':  location,'specialized': specialized }, url: WORKER_REGISTER,
       );
       print(response.data);
       print(response.statusCode);
+      print(response.data['specialized'].toString());
       late WorkerRegisterModel workerRegisterModel;
       workerRegisterModel= WorkerRegisterModel.fromJson(response.data);
       emit(WorkerRegisterSuccessState(workerRegisterModel));
@@ -137,20 +143,115 @@ void getUserData()
   ).catchError((error){
     emit((UserDataErrorState(error.toString())));
     print(error.toString());
-  });
+   }
+  );
 }
 
 
+  GetWorkerModel? getWorkerModel;
+  void getWorkerData()
+  {
+    emit(WorkerDataLoadingState());
+    //String idNumber =CacheHelper.getData(key: 'idNumber');
+   // print(idNumber);
+    DioHelper.getData(url: Get_Worker_Data ).then(
+            (value) {
+              getWorkerModel =  GetWorkerModel.fromJson(value.data);
+          print(getWorkerModel!.status);
+          print(getWorkerModel!.message);
+          print(getWorkerModel!.worker!.length);
+          print(getWorkerModel!.worker![0].name);
+
+          emit(WorkerDataSuccessState(
+              getWorkerModel!
+          ));
+        }
+    ).catchError((error){
+      emit((WorkerDataErrorState(error.toString())));
+      print(error.toString());
+    }
+    );
+  }
+
+
+
+
+  String token = CacheHelper.getData(key: 'token')??'';
+
+  ElectronicWorkerModel? getElectronicWorker;
+  void getElectronicWorkerData()
+  {
+    emit(ElectronicWorkerDataLoadingState());
+    //String idNumber =CacheHelper.getData(key: 'idNumber');
+    // print(idNumber);
+    DioHelper.getData(url: Get_Worker_Electronic ,token: token).then(
+            (value) {
+              getElectronicWorker =  ElectronicWorkerModel.fromJson(value.data);
+          // print(getElectronicWorker!.status);
+          // print(getElectronicWorker!.length);
+          // print(getElectronicWorker!.worker);
+          emit(ElectronicWorkerDataSuccessState(
+              getElectronicWorker!
+          ));
+        }
+    ).catchError((error){
+      emit((ElectronicWorkerDataErrorState(error.toString())));
+      print(error.toString());
+    }
+    );
+  }
 
 
 
 
 
 
+  MotorWorkerModel? getMotorWorker;
+  void getMotorWorkerData()
+  {
+    emit(MotorWorkerDataLoadingState());
+    //String idNumber =CacheHelper.getData(key: 'idNumber');
+    // print(idNumber);
+    DioHelper.getData(url: Get_Worker_Motor,token: token).then(
+            (value) {
+          getMotorWorker =  MotorWorkerModel.fromJson(value.data);
+          print(getMotorWorker!.status);
+          print(getMotorWorker!.length);
+          emit(MotorWorkerDataSuccessState(
+              getMotorWorker!
+          ));
+        }
+    ).catchError((error){
+      emit((MotorWorkerDataErrorState(error.toString())));
+      print(error.toString());
+    }
+    );
+  }
 
 
 
 
+  AnotherWorkerModel? getAnotherWorker;
+  void getAnotherWorkerData()
+  {
+    emit(AnotherWorkerDataLoadingState());
+    //String idNumber =CacheHelper.getData(key: 'idNumber');
+    // print(idNumber);
+    DioHelper.getData(url: Get_Worker_Another,token: token).then(
+            (value) {
+          getAnotherWorker =  AnotherWorkerModel.fromJson(value.data);
+          print(getAnotherWorker!.status);
+           print(getAnotherWorker!.length);
+          emit(AnotherWorkerDataSuccessState(
+              getAnotherWorker!
+          ));
+        }
+    ).catchError((error){
+      emit((AnotherWorkerDataErrorState(error.toString())));
+      print(error.toString());
+    }
+    );
+  }
 
 
 

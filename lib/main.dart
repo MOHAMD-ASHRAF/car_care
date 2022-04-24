@@ -1,10 +1,6 @@
-
-
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:car_care/cubit/app_state.dart';
 import 'package:car_care/cubit/cubit.dart';
-import 'package:car_care/screens/login/login_screen.dart';
-
 import 'package:car_care/screens/main_screens/home_screen.dart';
 import 'package:car_care/screens/onBoarding/onboarding_screen.dart';
 import 'package:car_care/screens/user_or_worker/user_or_worker_screen.dart';
@@ -12,7 +8,6 @@ import 'package:car_care/shared/constants/app_colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'bloc_observer.dart';
-import 'model/login_model.dart';
 import 'network/local/cache_helper.dart';
 import 'network/remote/dio_helper.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +61,7 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
         providers: [
-          BlocProvider(create: (BuildContext context) => AppCubit()..getUserData()),
+          BlocProvider(create: (BuildContext context) => AppCubit()..getUserData()..getWorkerData()..getAnotherWorkerData()..getElectronicWorkerData()..getMotorWorkerData()),
         ],
         child: BlocConsumer<AppCubit, AppState>(
           listener: (context, state) {},

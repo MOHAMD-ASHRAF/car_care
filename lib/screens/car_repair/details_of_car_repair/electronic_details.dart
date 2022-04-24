@@ -1,21 +1,20 @@
-import 'package:car_care/cubit/app_state.dart';
-import 'package:car_care/cubit/cubit.dart';
-import 'package:flutter/cupertino.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../shared/components/contact.dart';
-import '../../shared/components/default_button.dart';
+import '../../../cubit/app_state.dart';
+import '../../../cubit/cubit.dart';
+import '../../../shared/components/default_button.dart';
+import '../../../shared/components/form_field.dart';
+import '../../../shared/components/show_model.dart';
+import '../../../shared/constants/app_colors.dart';
 
-import '../../shared/components/form_field.dart';
-import '../../shared/components/show_model.dart';
-import '../../shared/constants/app_colors.dart';
-
-class CarRepairDetailsScreen extends StatelessWidget {
+class ElctronicCarRepairDetailsScreen extends StatelessWidget {
 
   var star = 4;
   final int index;
-  CarRepairDetailsScreen(this.index);
+  ElctronicCarRepairDetailsScreen(this.index);
   @override
   Widget build(BuildContext context,) {
     return BlocConsumer<AppCubit,AppState>(
@@ -70,7 +69,7 @@ class CarRepairDetailsScreen extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 80,
-                      backgroundImage:NetworkImage('https://vid.alarabiya.net/images/2020/01/07/b2fd1b6e-2a72-4038-b86b-985993fd4479/b2fd1b6e-2a72-4038-b86b-985993fd4479_16x9_1200x676.png?width=1138',),
+                      backgroundImage:NetworkImage('${AppCubit.get(context).getElectronicWorker!.worker![index].url}'),
                     ),
                     SizedBox(height: 20,),
                     Text(
