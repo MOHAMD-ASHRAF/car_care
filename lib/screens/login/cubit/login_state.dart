@@ -9,7 +9,6 @@ class LoginLodingState extends LoginState {}
 
 class LoginSuccessState extends LoginState {
   final LoginModel loginModel;
-
   LoginSuccessState(this.loginModel);
 
 }

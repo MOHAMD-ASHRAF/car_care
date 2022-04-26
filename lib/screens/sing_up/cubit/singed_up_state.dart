@@ -1,4 +1,5 @@
 
+import '../../../model/login_model.dart';
 import '../../../model/singed_up_model.dart';
 abstract class SingedUpState {}
 
@@ -8,9 +9,9 @@ class SingedUpLodingState extends SingedUpState {}
 
 class SingedUpSuccessState extends SingedUpState {
   final SingedUpModel singedUpModel;
-
   SingedUpSuccessState(this.singedUpModel);
 }
+
 
 class SingedUpErrorState extends SingedUpState {
   final String error;

@@ -127,11 +127,11 @@ GetUserFromId? userModel;
 
   LoginModel? loginModel;
 void getUserData()
-{
+  async{
   emit(UserDataLoadingState());
   String idNumber =CacheHelper.getData(key: 'idNumber');
   print(idNumber);
-  DioHelper.getData(url: GET_USER_DATA + idNumber).then(
+  await DioHelper.getData(url: GET_USER_DATA + idNumber).then(
           (value) {
             userModel = GetUserFromId.fromJson(value.data);
             print(userModel!.user!.name);
@@ -150,11 +150,11 @@ void getUserData()
 
   GetWorkerModel? getWorkerModel;
   void getWorkerData()
-  {
+  async{
     emit(WorkerDataLoadingState());
     //String idNumber =CacheHelper.getData(key: 'idNumber');
    // print(idNumber);
-    DioHelper.getData(url: Get_Worker_Data ).then(
+    await DioHelper.getData(url: Get_Worker_Data ).then(
             (value) {
               getWorkerModel =  GetWorkerModel.fromJson(value.data);
           print(getWorkerModel!.status);
@@ -180,11 +180,11 @@ void getUserData()
 
   ElectronicWorkerModel? getElectronicWorker;
   void getElectronicWorkerData()
-  {
+  async{
     emit(ElectronicWorkerDataLoadingState());
     //String idNumber =CacheHelper.getData(key: 'idNumber');
     // print(idNumber);
-    DioHelper.getData(url: Get_Worker_Electronic ,token: token).then(
+    await DioHelper.getData(url: Get_Worker_Electronic ,token: token).then(
             (value) {
               getElectronicWorker =  ElectronicWorkerModel.fromJson(value.data);
           // print(getElectronicWorker!.status);

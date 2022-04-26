@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../network/local/cache_helper.dart';
 import '../../shared/components/default_button.dart';
 import '../../shared/components/form_field.dart';
 import '../../shared/components/toast.dart';
@@ -24,7 +25,7 @@ class WorkerRegisterScreen extends StatelessWidget {
   var specializedController = TextEditingController();
   bool isHide = true;
   bool isHideConfirm = true;
-  List item =['motor','electronic','anather'];
+  List item =['motor','electronic','another'];
   String? selected;
   @override
   Widget build(BuildContext context) {
@@ -34,16 +35,18 @@ class WorkerRegisterScreen extends StatelessWidget {
       listener: (context, state) {
         if (state is WorkerRegisterSuccessState) {
           if (state.workerRegisterModel.status == 'success') {
-            print(state.workerRegisterModel.name);
+            CacheHelper.saveData(key: 'token', value: state.workerRegisterModel.token).then((value) {
+              navigateAndFinish(context, HomeScreen());
+            });
             showToast(
-              text: state.workerRegisterModel.message,
+              text: state.workerRegisterModel.message!,
               state: ToastStates.SUCCESS,
             );
             navigateAndFinish(context, HomeScreen());
           } else {
             print('${state.workerRegisterModel.message}');
             showToast(
-              text: state.workerRegisterModel.message,
+              text: state.workerRegisterModel.message!,
               state: ToastStates.ERROR,
             );
           }

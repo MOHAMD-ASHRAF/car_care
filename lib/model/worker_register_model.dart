@@ -1,32 +1,49 @@
-class WorkerRegisterModel{
-  late String status;
-  String? name;
-  String? email;
-  String? password;
-  String? confirmPassword;
-  String? phone;
-  Location? location;
-  String? specialized;
-  late String message;
-  WorkerRegisterModel.fromJson(Map<String,dynamic> json){
-    name = json['name'];
-    email = json['email'];
-    password = json['password'];
-    confirmPassword = json['confirmPassword'];
-    phone = json['phone'];
-    message =json['message'];
+class WorkerRegisterModel {
+  String? status;
+  String? message;
+  String? token;
+  Worker? worker;
+
+  WorkerRegisterModel({this.status, this.message, this.token, this.worker});
+
+  WorkerRegisterModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    specialized = json['specialized'];
-    location = json['location'] != null  ?new Location.fromJson(json['location']): null;
+    message = json['message'];
+    token = json['token'];
+    worker =
+    json['Worker'] != null ? new Worker.fromJson(json['Worker']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    data['token'] = this.token;
+    if (this.worker != null) {
+      data['Worker'] = this.worker!.toJson();
+    }
+    return data;
   }
 }
 
-class Location {
-  List<double>? coordinates;
+class Worker {
+  String? sId;
+  String? name;
+  String? email;
 
-  Location({this.coordinates});
+  Worker({this.sId, this.name, this.email});
 
-  Location.fromJson(Map<String, dynamic> json) {
-    coordinates = json['coordinates'].cast<double>();
+  Worker.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    name = json['name'];
+    email = json['email'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['name'] = this.name;
+    data['email'] = this.email;
+    return data;
   }
 }

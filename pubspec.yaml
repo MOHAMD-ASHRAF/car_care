@@ -40,7 +40,9 @@ dependencies:
   google_sign_in: ^5.2.4
   font_awesome_flutter: ^10.0.0
   carousel_slider: ^4.0.0
-
+  geolocator:
+  geocoding:
+  location:
 
 
   # The following adds the Cupertino Icons font to your application.

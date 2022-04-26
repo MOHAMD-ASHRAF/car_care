@@ -1,9 +1,11 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../../network/local/cache_helper.dart';
 import '../../shared/components/default_button.dart';
 import '../../shared/components/form_field.dart';
 import '../../shared/components/toast.dart';
+import '../login/cubit/login_cubit.dart';
 import '../login/login_screen.dart';
 import 'package:flutter/material.dart';
 import '../main_screens/home_screen.dart';
@@ -35,16 +37,18 @@ class _SingUpScreenState extends State<SingUpScreen> {
           listener: (context, state) {
         if (state is SingedUpSuccessState) {
           if (state.singedUpModel.status == 'success') {
-            print(state.singedUpModel.name);
-            showToast(
-              text: state.singedUpModel.message,
+            CacheHelper.saveData(key: 'token', value: state.singedUpModel.token).then((value) {
+              navigateAndFinish(context, HomeScreen());
+            });
+             showToast(
+              text: state.singedUpModel.message!,
               state: ToastStates.SUCCESS,
             );
             navigateAndFinish(context, HomeScreen());
           } else {
             print('${state.singedUpModel.message}');
             showToast(
-              text: state.singedUpModel.message,
+              text: state.singedUpModel.message!,
               state: ToastStates.ERROR,
             );
           }

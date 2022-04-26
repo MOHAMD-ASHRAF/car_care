@@ -128,7 +128,7 @@ class HomeScreen extends StatelessWidget {
                                 image: AssetImage('assets/images/lolo.png'),
                                 text: 'PARKING',
                                 function: () {
-                                  navigateTo(context, BarkingScreen());
+                                  navigateTo(context, ParkingScreen());
                                 }),
                             homeItem(
                                 image: AssetImage('assets/images/Untitled-2.png'),
