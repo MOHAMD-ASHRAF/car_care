@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:car_care/model/electronic_worker_model.dart';
 import 'package:car_care/model/get_worker_model.dart';
@@ -15,27 +14,33 @@ import '../model/worker_login_model.dart';
 import '../model/worker_register_model.dart';
 import '../network/end_point.dart';
 import '../network/remote/dio_helper.dart';
-import '../shared/constants/constant.dart';
 import 'app_state.dart';
+
+import 'package:path/path.dart';
+import 'package:async/async.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:http_parser/http_parser.dart';
 
 class AppCubit extends Cubit<AppState> {
 
   AppCubit() : super(AppInitialState());
 
   static AppCubit get(context) => BlocProvider.of(context);
-
   File? profileImage;
   var picker =ImagePicker();
   late WorkerLoginModel  workerLoginModel;
   late WorkerRegisterModel workerRegisterModel;
-
 
   Future<void> getProfileImageFromGallery(BuildContext context) async{
     final pikedFile = await picker.pickImage(source: ImageSource.gallery);
      if (pikedFile != null){
        Navigator.of(context).pop();
        profileImage =File(pikedFile.path);
+       uploadPhoto(token: token,photo: profileImage);
        emit(ProfileImagePikerErrorState());
+
      }else
        {
          print('no image selected');
@@ -43,6 +48,35 @@ class AppCubit extends Cubit<AppState> {
        }
   }
 
+  void uploadPhoto(
+      {
+        File? photo,
+        String? token,
+      }
+      )async{
+
+    FormData formData = FormData.fromMap({
+      "image" : photo != null? await MultipartFile.fromFile(
+        photo.path,
+        contentType: MediaType('image','png'),
+      ):null,
+      //'token':token,
+    });
+    try {
+      var response = await DioHelper.postData(url: UPLOAD_IMAGE, data:formData,token: token );
+      emit(ProfileImagePikerSuccessState());
+      print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+      print(response.data);
+    }on DioError catch(e){
+      print('222222222');
+      print(e.response!.statusCode);
+      emit(ProfileImagePikerSuccessState());
+    }catch(e){
+      print('3333333333');
+      emit(ProfileImagePikerErrorState());
+    }
+
+  }
 
   Future<void> getProfileImageFromCamera(BuildContext context) async{
     final pikedFile = await picker.pickImage(source: ImageSource.camera);
@@ -56,8 +90,6 @@ class AppCubit extends Cubit<AppState> {
       emit(ProfileImagePikerErrorState());
     }
   }
-
-
 
   void workerLogin({
     required String email,
@@ -146,6 +178,38 @@ void getUserData()
    }
   );
 }
+
+  void updateUserData({
+  required String name,
+  required String phone,
+})
+  async{
+    emit(UpdateUserDataLoadingState());
+    String idNumber =CacheHelper.getData(key: 'idNumber');
+    print(idNumber);
+    await DioHelper.patchData(
+        url: UPDATE_PROFILE,
+        token: token,
+      data: {
+          'name' : name,
+          'phone' : phone,
+      }
+    ).then(
+            (value) {
+          userModel = GetUserFromId.fromJson(value.data);
+          print(userModel!.user!.name);
+          print(userModel!.user!.sId);
+          emit(UpdateUserDataSuccessState(
+              userModel!
+          ));
+        }
+    ).catchError((error){
+      emit((UpdateUserDataErrorState(error.toString())));
+      print(error.toString());
+    }
+    );
+  }
+
 
 
   GetWorkerModel? getWorkerModel;

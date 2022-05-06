@@ -1,50 +1,73 @@
-import '../../shared/constants/app_colors.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:flutter/material.dart';
 
 class RecoveryScreen extends StatelessWidget {
  // const RecoveryScreen({Key? key}) : super(key: key);
+  GoogleMapController? _googleMapController;
+  TextEditingController? _searchController = TextEditingController();
+  static const _initialCameraPosition =CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.5,
+  );
+  static final Marker _kGooglePlexMarker = Marker(
+    markerId: const MarkerId(' _kGooglePlex'),
+    infoWindow:  const InfoWindow(title: 'your location'),
+    icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+    position: LatLng(37.42796133580664, -122.085749655962),
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: (AppBar(backgroundColor: appPrimaryColor)),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: GridView.builder(
-          itemCount: 6,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.70,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 20,
+      appBar: AppBar(
+        title: Text("Map"),
+      ),
+      body: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(child: TextFormField(
+                controller:  _searchController,
+                textCapitalization: TextCapitalization.words,
+                decoration: InputDecoration(hintText:  'search for parking'),
+                onChanged: (value) {
+                  print(value);
+                },
+              )
+              ),
+              IconButton(onPressed: (){}, icon: Icon(Icons.search)
+              )
+            ],
           ),
-          itemBuilder: (context, index) => itemCard(),
+          Expanded(
+            child:GoogleMap(
+              myLocationButtonEnabled: false,
+              zoomControlsEnabled: false,
+              initialCameraPosition:_initialCameraPosition,
+              onMapCreated: (controller) => _googleMapController =controller,
+              markers: {
+                _kGooglePlexMarker,
+                // _destination,
+              },
+              // polylines: {
+              //   _kPolyLine
+              // },
+              // polygons: {
+              //   _kPolygon
+              // },
+            ) ,
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
+        child: Icon(Icons.location_searching,color: Colors.white,),
+        onPressed: () => _googleMapController!.animateCamera(
+          CameraUpdate.newCameraPosition(_initialCameraPosition),
         ),
       ),
     );
   }
 }
-
-Widget itemCard() => Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Container(
-            // width: 160,
-            // height: 190,
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: appPrimaryColor, width: 4),
-            ),
-            child: Image(image: AssetImage('assets/images/lolo.png')),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text('first',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
-        )
-      ],
-    );
 

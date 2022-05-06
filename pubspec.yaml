@@ -43,6 +43,8 @@ dependencies:
   geolocator:
   geocoding:
   location:
+  flutter_polyline_points:
+  http:
 
 
   # The following adds the Cupertino Icons font to your application.

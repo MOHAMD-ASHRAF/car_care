@@ -1,12 +1,18 @@
 
+
+import 'package:path/path.dart';
+import 'package:async/async.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:car_care/cubit/app_state.dart';
 import 'package:car_care/cubit/cubit.dart';
 import 'package:car_care/network/local/cache_helper.dart';
+import 'package:car_care/screens/profile/update_proflle_screen.dart';
 import 'package:car_care/screens/user_or_worker/user_or_worker_screen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../shared/components/card_info.dart';
 import '../../shared/components/default_button.dart';
 import '../../shared/components/form_field.dart';
@@ -47,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   minWidth: 10,
                   height: 10,
                   onPressed: (){
-                    // navigateTo(context, ProfileScreen());
+                   navigateTo(context, UpdateProfileScreen());
                   },
                   child: Icon(Icons.edit,color: Colors.white,size: 25,),
                 )
@@ -78,7 +84,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             radius: 80,
                             backgroundImage: profileImage == null ? NetworkImage(
                                 '${cubit .userModel!.user!.url}'
-                            ) : FileImage(profileImage) as ImageProvider ,
+                            ) : FileImage(profileImage) as ImageProvider,
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 5, bottom: 2),
@@ -201,3 +207,4 @@ Future openDialog(context) =>showDialog(
       ),
     )
 );
+

@@ -8,6 +8,7 @@ abstract class AppState {}
 
 class AppInitialState extends AppState {}
 
+
 class ProfileImagePikerSuccessState extends AppState {}
 
 class ProfileImagePikerErrorState extends AppState {}
@@ -95,3 +96,17 @@ class  AnotherWorkerDataErrorState extends AppState {
   final String error;
   AnotherWorkerDataErrorState(this.error);
 }
+
+
+
+
+class UpdateUserDataLoadingState extends AppState {}
+class UpdateUserDataSuccessState extends AppState {
+  final GetUserFromId userModel;
+  UpdateUserDataSuccessState(this.userModel);
+}
+class UpdateUserDataErrorState extends AppState {
+  final String error;
+  UpdateUserDataErrorState(this.error);
+}
+

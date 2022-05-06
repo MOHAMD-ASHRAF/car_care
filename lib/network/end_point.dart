@@ -7,3 +7,5 @@ const Get_Worker_Data = 'api/worker/5555/getWorker';
 const Get_Worker_Electronic= 'api/worker/getSpecialized/electronic';
 const Get_Worker_Motor = 'api/worker/getSpecialized/motor';
 const Get_Worker_Another = 'api/worker/getSpecialized/another';
+const UPDATE_PROFILE = 'api/users/updateMe';
+const UPLOAD_IMAGE = 'api/users/uploadImg';

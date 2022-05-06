@@ -1,3 +1,9 @@
+import '../../screens/about_us/about_us_screen.dart';
+import '../../screens/car_service/car_service.dart';
+import '../../screens/main_screens/home_screen.dart';
+import '../../screens/recovery/recovery_screen.dart';
+import '../../screens/spare_parts/spare_screen.dart';
+import '../components/default_button.dart';
 import 'app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -11,15 +17,15 @@ class DrawerWidget extends StatelessWidget {
           child: ListView(
             children: <Widget>[
               buildHeader(context),
-              buildDrawerItem(itemIcon: Icons.home, itemTitle: "Home"),
+              buildDrawerItem(itemIcon: Icons.home, itemTitle: "Home",function: () {navigateTo(context, HomeScreen());}),
               buildDrawerItem(
-                  itemIcon: Icons.construction, itemTitle: "Recovery"),
+                  itemIcon: Icons.construction, itemTitle: "Recovery",function: () {navigateTo(context, RecoveryScreen());}),
               buildDrawerItem(
-                  itemIcon: Icons.construction, itemTitle: "Spare Parts"),
+                  itemIcon: Icons.construction, itemTitle: "Spare Parts",function: () {navigateTo(context, SpareScreen());}),
               buildDrawerItem(
-                  itemIcon: Icons.construction, itemTitle: "Car Services"),
+                  itemIcon: Icons.construction, itemTitle: "Car Services",function: () {navigateTo(context, CarServices());}),
               buildDrawerItem(
-                  itemIcon: Icons.info_outline, itemTitle: "About us "),
+                  itemIcon: Icons.info_outline, itemTitle: "About us ",function: () {navigateTo(context, AboutUsScreen());}),
             ],
           ),
         ),
@@ -29,15 +35,18 @@ class DrawerWidget extends StatelessWidget {
 }
 
 Widget buildDrawerItem(
-    {required IconData itemIcon, required String itemTitle}) {
-  return ListTile(
-    leading: Icon(
-      itemIcon,
-      color: appPrimaryColor,
-    ),
-    title: Text(
-      itemTitle,
-      style: TextStyle(color: appPrimaryColor),
+    {required IconData itemIcon, required String itemTitle,required GestureTapCallback function}) {
+  return InkWell(
+    onTap: function,
+    child: ListTile(
+      leading: Icon(
+        itemIcon,
+        color: appPrimaryColor,
+      ),
+      title: Text(
+        itemTitle,
+        style: TextStyle(color: appPrimaryColor),
+      ),
     ),
   );
 }

@@ -30,7 +30,7 @@ class DioHelper {
   static Future<Response> postData({
     required String url,
     Map<String, dynamic>? query,
-    required Map<String, dynamic> data,
+    required dynamic data,
     //String lang ='ar',
     String? token,
   }) async {
@@ -40,6 +40,25 @@ class DioHelper {
       'x-auth-token' : token??'',
     };
     return await dio.post(
+      url,
+      queryParameters: query,
+      data: data,
+    );
+  }
+
+  static Future<Response> patchData({
+    required String url,
+    Map<String, dynamic>? query,
+    required Map<String, dynamic> data,
+    //String lang ='ar',
+    String? token,
+  }) async {
+    dio.options.headers ={
+      'Content-Type': 'application/json',
+      //'lang': lang,
+      'x-auth-token' : token??'',
+    };
+    return await dio.patch(
       url,
       queryParameters: query,
       data: data,
