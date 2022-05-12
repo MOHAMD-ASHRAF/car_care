@@ -45,6 +45,7 @@ dependencies:
   location:
   flutter_polyline_points:
   http:
+  flutter_rating_bar:
 
 
   # The following adds the Cupertino Icons font to your application.

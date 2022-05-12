@@ -1,4 +1,3 @@
-
 import 'package:car_care/model/electronic_worker_model.dart';
 import 'package:car_care/model/get_worker_model.dart';
 import 'package:car_care/model/login_model.dart';
@@ -16,11 +15,7 @@ import '../network/end_point.dart';
 import '../network/remote/dio_helper.dart';
 import 'app_state.dart';
 
-import 'package:path/path.dart';
-import 'package:async/async.dart';
 import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:http_parser/http_parser.dart';
 
 class AppCubit extends Cubit<AppState> {
@@ -28,19 +23,21 @@ class AppCubit extends Cubit<AppState> {
   AppCubit() : super(AppInitialState());
 
   static AppCubit get(context) => BlocProvider.of(context);
+
   File? profileImage;
   var picker =ImagePicker();
-  late WorkerLoginModel  workerLoginModel;
-  late WorkerRegisterModel workerRegisterModel;
+
+  String token = CacheHelper.getData(key: 'token')??'';
+
 
   Future<void> getProfileImageFromGallery(BuildContext context) async{
+    emit(ProfileImagePikerLoadingState());
     final pikedFile = await picker.pickImage(source: ImageSource.gallery);
      if (pikedFile != null){
        Navigator.of(context).pop();
-       profileImage =File(pikedFile.path);
+        profileImage =File(pikedFile.path);
        uploadPhoto(token: token,photo: profileImage);
-       emit(ProfileImagePikerErrorState());
-
+       emit(ProfileImagePikerSuccessState());
      }else
        {
          print('no image selected');
@@ -48,22 +45,41 @@ class AppCubit extends Cubit<AppState> {
        }
   }
 
+
+  Future<void> getProfileImageFromCamera(BuildContext context) async{
+    emit(ProfileImagePikerLoadingState());
+    final pikedFile = await picker.pickImage(source: ImageSource.camera);
+    if (pikedFile != null){
+      Navigator.of(context).pop();
+      profileImage =File(pikedFile.path);
+      uploadPhoto(token: token,photo: profileImage);
+
+      emit(ProfileImagePikerErrorState());
+    }else
+    {
+      print('no image selected');
+      emit(ProfileImagePikerErrorState());
+    }
+  }
+
+
+
+
   void uploadPhoto(
       {
         File? photo,
         String? token,
       }
       )async{
-
     FormData formData = FormData.fromMap({
       "image" : photo != null? await MultipartFile.fromFile(
         photo.path,
-        contentType: MediaType('image','png'),
+        contentType: MediaType("image","png"),
       ):null,
-      //'token':token,
+      // 'token':token,
     });
     try {
-      var response = await DioHelper.postData(url: UPLOAD_IMAGE, data:formData,token: token );
+      var response = await DioHelper.patchData(url: UPLOAD_IMAGE, data:formData , token: token);
       emit(ProfileImagePikerSuccessState());
       print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
       print(response.data);
@@ -75,22 +91,13 @@ class AppCubit extends Cubit<AppState> {
       print('3333333333');
       emit(ProfileImagePikerErrorState());
     }
-
   }
 
-  Future<void> getProfileImageFromCamera(BuildContext context) async{
-    final pikedFile = await picker.pickImage(source: ImageSource.camera);
-    if (pikedFile != null){
-      Navigator.of(context).pop();
-      profileImage =File(pikedFile.path);
-      emit(ProfileImagePikerErrorState());
-    }else
-    {
-      print('no image selected');
-      emit(ProfileImagePikerErrorState());
-    }
-  }
 
+
+
+
+  late WorkerLoginModel  workerLoginModel;
   void workerLogin({
     required String email,
     required String password,
@@ -120,6 +127,9 @@ class AppCubit extends Cubit<AppState> {
   }
 
 
+
+
+  late WorkerRegisterModel workerRegisterModel;
   void workerRegister({
     required String email,
     required String name,
@@ -173,6 +183,7 @@ void getUserData()
             ));
           }
   ).catchError((error){
+
     emit((UserDataErrorState(error.toString())));
     print(error.toString());
    }
@@ -180,9 +191,9 @@ void getUserData()
 }
 
   void updateUserData({
-  required String name,
-  required String phone,
-})
+    required String name,
+    required String phone,
+  })
   async{
     emit(UpdateUserDataLoadingState());
     String idNumber =CacheHelper.getData(key: 'idNumber');
@@ -190,10 +201,10 @@ void getUserData()
     await DioHelper.patchData(
         url: UPDATE_PROFILE,
         token: token,
-      data: {
+        data: {
           'name' : name,
           'phone' : phone,
-      }
+        }
     ).then(
             (value) {
           userModel = GetUserFromId.fromJson(value.data);
@@ -240,7 +251,6 @@ void getUserData()
 
 
 
-  String token = CacheHelper.getData(key: 'token')??'';
 
   ElectronicWorkerModel? getElectronicWorker;
   void getElectronicWorkerData()

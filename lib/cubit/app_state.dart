@@ -9,9 +9,12 @@ abstract class AppState {}
 class AppInitialState extends AppState {}
 
 
+class ProfileImagePikerLoadingState extends AppState {}
+
 class ProfileImagePikerSuccessState extends AppState {}
 
 class ProfileImagePikerErrorState extends AppState {}
+
 
 class WorkerLoginLoadingState extends AppState {}
 class WorkerLoginSuccessState extends AppState {

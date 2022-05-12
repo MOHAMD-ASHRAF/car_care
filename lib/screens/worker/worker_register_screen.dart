@@ -26,11 +26,11 @@ class WorkerRegisterScreen extends StatelessWidget {
   bool isHide = true;
   bool isHideConfirm = true;
   List item =['motor','electronic','another'];
-  String? selected;
+  String? selected= 'another';
   @override
   Widget build(BuildContext context) {
 
-    final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
+   // final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return BlocConsumer<AppCubit,AppState>(
       listener: (context, state) {
         if (state is WorkerRegisterSuccessState) {
@@ -46,234 +46,253 @@ class WorkerRegisterScreen extends StatelessWidget {
           } else {
             print('${state.workerRegisterModel.message}');
             showToast(
-              text: state.workerRegisterModel.message!,
+              text: state.workerRegisterModel.message.toString(),
               state: ToastStates.ERROR,
             );
           }
         }
       },
-        builder: (context, state) {
+      builder: (context, state) {
         return GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
+          // onTap: () {
+          //   FocusScope.of(context).unfocus();
+          // },
           child: Scaffold(
             body: SafeArea(
               child: Stack(
                 children: [
-                  // backGround(),
-                 // if (isKeyboard) backGroundu(),
-                 // SizedBox(height: 320),
                   SingleChildScrollView(
-                    reverse: false,
+                   // reverse: false,
                     child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: Form(
                         key: formKey,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // SizedBox(
-                            //     height: 280 + MediaQuery.of(context).padding.top
-                            // ),
-                            Text('Email',
-                                style: TextStyle(
-                                  color: Colors.grey[800],
-                                  fontSize: 16,
-                                )),
-                            SizedBox(height: 5),
-                            defaultField(
-                                controller: emailController,
-                                typeOfInput: TextInputType.emailAddress,
-                                validate: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Enter correct email';
-                                  }
-                                  return null;
-                                }),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text('Name',
-                                style: TextStyle(
-                                  color: Colors.grey[800],
-                                  fontSize: 16,
-                                )),
-                            SizedBox(height: 5),
-                            defaultField(
-                                controller: nameController,
-                                typeOfInput: TextInputType.name,
-                                validate: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Enter correct name';
-                                  }
-                                  return null;
-                                }),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text('Phone Number',
-                                style: TextStyle(
-                                  color: Colors.grey[800],
-                                  fontSize: 16,
-                                )),
-                            SizedBox(height: 5),
-                            defaultField(
-                                controller: phoneController,
-                                typeOfInput: TextInputType.phone,
-                                validate: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Enter correct phone number';
-                                  }
-                                  return null;
-                                }),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text('Location',
-                                style: TextStyle(
-                                  color: Colors.grey[800],
-                                  fontSize: 16,
-                                )),
-                            SizedBox(height: 5),
-                            defaultField(
-                                controller: locationController,
-                                typeOfInput: TextInputType.name,
-                                validate: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Enter correct Location';
-                                  }
-                                  return null;
-                                }),
-                            SizedBox(height: 5),
-                            Text('specialty',
-                                style: TextStyle(
-                                  color: Colors.grey[800],
-                                  fontSize: 16,
-                                )),
-                            defaultField(
-                                controller: specializedController,
-                                typeOfInput: TextInputType.name,
-                                validate: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Enter correct specialty';
-                                  }
-                                  return null;
-                                }),
-                            SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    height: 40,
-                                    child: TextFormField(
-                                      obscureText: true,
-                                      controller: passwordController,
-                                      decoration: InputDecoration(
-                                          label: Text('password'),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(16),
-                                          )),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    height: 40,
-                                    child: TextFormField(
-                                      obscureText: true,
-                                      controller: confirmPasswordController,
-                                      decoration: InputDecoration(
-                                          label: Text('confirm password'),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(16),
-                                          )),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 10),
-                            // Spacer(),
-                            Center(
-                              child: ConditionalBuilder(
-                                condition: state is! WorkerRegisterLoadingState,
-                                builder: (context) => defaultButton(
-                                    width: 150,
-                                    color: Colors.black,
-                                    colorText: Colors.white,
-                                    text: 'Register',
-                                    function: () {
-                                      if (formKey.currentState!.validate()) {
-                                        AppCubit.get(context).workerRegister(
-                                          email: emailController.text,
-                                          password: passwordController.text,
-                                          confirmPassword: confirmPasswordController.text,
-                                          phone: phoneController.text,
-                                          name: nameController.text,
-                                          location: locationController.text,
-                                          specialized: specializedController.text,
-                                        );
-                                      } //navigateTo(context, HomeScreen());
-                                    }),
-                                fallback: (context) => Center(
-                                    child: CircularProgressIndicator(
-                                        color: Colors.red)),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    height: 2,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                Center(
-                                    child: Text(
-                                      'or',
-                                      style: TextStyle(fontSize: 20),
-                                    )),
-                                Expanded(
-                                  child: Container(
-                                    height: 2,
-                                    color: Colors.grey,
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Already have an account ?',
+                        child: Container(
+                          height: MediaQuery.of(context).size.height,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // SizedBox(0
+                              //     height: 280 + MediaQuery.of(context).padding.top
+                              // ),
+                              Text('Email',
                                   style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                                    color: Colors.grey[800],
+                                    fontSize: 16,
+                                  )),
+                              SizedBox(height: 5),
+                              defaultField(
+                                  controller: emailController,
+                                  typeOfInput: TextInputType.emailAddress,
+                                  validate: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Enter correct email';
+                                    }
+                                    return null;
+                                  }),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text('Name',
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 16,
+                                  )),
+                              SizedBox(height: 5),
+                              defaultField(
+                                  controller: nameController,
+                                  typeOfInput: TextInputType.name,
+                                  validate: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Enter correct name';
+                                    }
+                                    return null;
+                                  }),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text('Phone Number',
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 16,
+                                  )),
+                              SizedBox(height: 5),
+                              defaultField(
+                                  controller: phoneController,
+                                  typeOfInput: TextInputType.phone,
+                                  validate: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Enter correct phone number';
+                                    }
+                                    return null;
+                                  }),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text('Location',
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 16,
+                                  )),
+                              SizedBox(height: 5),
+                              defaultField(
+                                  controller: locationController,
+                                  typeOfInput: TextInputType.name,
+                                  validate: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Enter correct Location';
+                                    }
+                                    return null;
+                                  }),
+                              SizedBox(height: 15),
+                              Text('specialty',
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 17,
+                                  )),
+                              SizedBox(height: 5),
+                              DropdownButtonFormField(
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(width: 1,)
+                                  )
                                 ),
-                                Container(
-                                  width: 70,
-                                  height: 30,
-                                  child: TextButton(
-                                      onPressed: () {
-                                        navigateTo(context, WorkerLoginScreen());
-                                      },
+                                value:  selected,
+                                items: item
+                                      .map((item) => DropdownMenuItem(
+                                      value: item,
+                                      child: Text(item,style: TextStyle(fontSize: 15),)
+                                  )).toList(),
+                                  onChanged: (item) => selected = item.toString(),
+                              ),
+                              SizedBox(height: 15),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      height: 40,
+                                      child: TextFormField(
+                                        obscureText: true,
+                                        controller: passwordController,
+                                        decoration: InputDecoration(
+                                            label: Text('password'),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(16),
+                                            )),
+                                          validator:  (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Enter correct password';
+                                            }
+                                            return null;
+                                          }
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      height: 40,
+                                      child: TextFormField(
+                                        obscureText: true,
+                                        controller: confirmPasswordController,
+                                        decoration: InputDecoration(
+                                            label: Text('confirm password'),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(16),
+                                            )),
+                                          validator:  (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Enter correct password';
+                                            }
+                                            return null;
+                                          }
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 15),
+                              // Spacer(),
+                              Center(
+                                child: ConditionalBuilder(
+                                  condition: state is! WorkerRegisterLoadingState,
+                                  builder: (context) => defaultButton(
+                                      width: 150,
+                                      color: Colors.black,
+                                      colorText: Colors.white,
+                                      text: 'Register',
+                                      function: () {
+                                        if (formKey.currentState!.validate()) {
+                                          AppCubit.get(context).workerRegister(
+                                            email: emailController.text,
+                                            password: passwordController.text,
+                                            confirmPassword: confirmPasswordController.text,
+                                            phone: phoneController.text,
+                                            name: nameController.text,
+                                            location: locationController.text,
+                                            specialized: selected!,
+                                          );
+                                        } //navigateTo(context, HomeScreen());
+                                      }),
+                                  fallback: (context) => Center(
+                                      child: CircularProgressIndicator(
+                                          color: Colors.red)),
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      height: 2,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  Center(
                                       child: Text(
-                                        'LOG IN',
-                                        style: TextStyle(color: Colors.black),
+                                        'or',
+                                        style: TextStyle(fontSize: 20),
                                       )),
-                                )
-                              ],
-                            )
-                          ],
+                                  Expanded(
+                                    child: Container(
+                                      height: 2,
+                                      color: Colors.grey,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Already have an account ?',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Container(
+                                    width: 70,
+                                    height: 30,
+                                    child: TextButton(
+                                        onPressed: () {
+                                          navigateTo(context, WorkerLoginScreen());
+                                        },
+                                        child: Text(
+                                          'LOG IN',
+                                          style: TextStyle(color: Colors.black),
+                                        )),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -283,7 +302,7 @@ class WorkerRegisterScreen extends StatelessWidget {
             ),
           ),
         );
-        },
+      },
     );
   }
 }

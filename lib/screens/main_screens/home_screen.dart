@@ -52,10 +52,11 @@ class HomeScreen extends StatelessWidget {
                     onPressed: (){
                       navigateTo(context, ProfileScreen());
                     },
-                    child: CircleAvatar(
+                    child:  CircleAvatar(
+                      radius: 20,
                       backgroundImage: profileImage == null ? NetworkImage(
-                          'https://www.seekpng.com/png/detail/46-462910_person-icon-black-avatar-png.png'
-                      ) : FileImage(profileImage) as ImageProvider ,
+                          '${AppCubit.get(context).userModel!.user!.url}'
+                      ) : FileImage(profileImage) as ImageProvider,
                     ),
                   )
                 ],
@@ -128,12 +129,13 @@ class HomeScreen extends StatelessWidget {
                                 image: AssetImage('assets/images/lolo.png'),
                                 text: 'PARKING',
                                 function: () {
-                                  navigateTo(context, ParkingScreen());
+                                  navigateTo(context, Direction());
                                 }),
                             homeItem(
                                 image: AssetImage('assets/images/Untitled-2.png'),
                                 text: 'BUY % SELL',
                                 function: () {
+                                  navigateTo(context, BuySell());
                                 }),
                             homeItem(
                                 image: AssetImage('assets/images/Untitled-4.png'),

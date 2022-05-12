@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../cubit/app_state.dart';
 import '../../../cubit/cubit.dart';
@@ -12,7 +13,7 @@ import '../../../shared/constants/app_colors.dart';
 
 class MotorCarRepairDetailsScreen extends StatelessWidget {
 
-  var star = 4;
+   double rating=0;
   final int index;
   MotorCarRepairDetailsScreen(this.index);
   @override
@@ -76,18 +77,17 @@ class MotorCarRepairDetailsScreen extends StatelessWidget {
                       '${AppCubit.get(context).getMotorWorker!.worker![index].name}',
                       style: TextStyle(fontSize: 20 , fontWeight: FontWeight.bold,color: appPrimaryColor),maxLines: 2,),
                     SizedBox(height: 10,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.star, color: star >= 1 ? Colors.yellow: Colors.grey ,size: 40,),
-                        Icon(Icons.star , color: star >= 2 ? Colors.yellow: Colors.grey ,size: 40,),
-                        Icon(Icons.star , color: star >= 3 ? Colors.yellow: Colors.grey ,size: 40,),
-                        Icon(Icons.star , color: star >= 4 ? Colors.yellow: Colors.grey ,size: 40,),
-                        Icon(Icons.star , color: star >= 5 ? Colors.yellow: Colors.grey ,size: 40,),
-                      ],
+                    Text('rating = $rating'),
+                    RatingBar.builder(
+                      maxRating: 1,
+                      itemSize: 40,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 5),
+                      itemBuilder: (context,_)=> Icon(Icons.star,color: Colors.amber,),
+                      updateOnDrag: true,
+                      onRatingUpdate: (rating) => this.rating = rating,
                     ),
                     SizedBox(height: 30,),
-                    information(describe: 'Specialization' , text: 'electronic'),
+                    information(describe: 'Specialization' , text: 'motor'),
                     SizedBox(height: 20,),
                     information(describe: 'E-mail' , text: 'email'),
                     SizedBox(height: 20,),

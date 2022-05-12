@@ -49,7 +49,7 @@ class DioHelper {
   static Future<Response> patchData({
     required String url,
     Map<String, dynamic>? query,
-    required Map<String, dynamic> data,
+    required  dynamic data,
     //String lang ='ar',
     String? token,
   }) async {

@@ -41,7 +41,7 @@ Widget buildGrid() {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const CarDetails()),
+              MaterialPageRoute(builder: (context) =>  CarDetails()),
             );
           },
           child: buildCard());

@@ -1,10 +1,4 @@
 
-
-import 'package:path/path.dart';
-import 'package:async/async.dart';
-import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:car_care/cubit/app_state.dart';
 import 'package:car_care/cubit/cubit.dart';
 import 'package:car_care/network/local/cache_helper.dart';
@@ -26,7 +20,6 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-
     return BlocConsumer<AppCubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {

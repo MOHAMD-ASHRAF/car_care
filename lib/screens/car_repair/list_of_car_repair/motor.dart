@@ -116,7 +116,7 @@ Widget buildListViewItem(context,index)=>Container(
             fontSize: 20,fontWeight: FontWeight.bold ,color:appPrimaryColor),
         overflow: TextOverflow.ellipsis,
         maxLines: 1,),
-      subtitle: Text('electronic',style: TextStyle(fontSize: 15)),
+      subtitle: Text('motor',style: TextStyle(fontSize: 15)),
       trailing: Icon(Icons.remove_red_eye_outlined , color:appPrimaryColor, size: 30,),
     ),
   ),
