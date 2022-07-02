@@ -1,104 +1,107 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
-const LatLng SOURCE_LOCATION = LatLng(13.652720, 100.493635);
-const LatLng DEST_LOCATION = LatLng(13.6640896, 100.4357021);
 
-class Direction extends StatefulWidget {
+
+class Home extends StatefulWidget {
   @override
-  _DirectionState createState() => _DirectionState();
+  _MapScreenState createState() => _MapScreenState();
 }
 
-class _DirectionState extends State<Direction> {
-  Completer<GoogleMapController> mapController = Completer();
+class _MapScreenState extends State<Home> {
+  GoogleMapController? _controller;
+  Location currentLocation = Location();
+  Set<Marker> _markers={};
 
-  Set<Marker> _markers = Set<Marker>();
-  late LatLng currentLocation;
-  late LatLng destinationLocation;
 
-  Set<Polyline> _polylines = Set<Polyline>();
-  List<LatLng> polylineCoordinates = [];
-  late PolylinePoints polylinePoints;
-
-  @override
-  void initState() {
-    super.initState();
-    polylinePoints = PolylinePoints();
-    this.setInitialLocation();
+  void getLocation() async{
+    var location = await currentLocation.getLocation();
+    currentLocation.onLocationChanged.listen((LocationData loc){
+      _controller?.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
+        target: LatLng(loc.latitude ?? 0.0,loc.longitude?? 0.0),
+        zoom: 12.0,
+      )));
+      print(loc.latitude);
+      print(loc.longitude);
+      setState(() {
+        _markers.add(Marker(markerId: MarkerId('Home'),
+          position: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0),
+          infoWindow: InfoWindow(
+            title: 'current location'
+          )
+        ));
+        _markers.add(Marker(markerId: MarkerId('2'),
+            position: LatLng(31.094242, 33.744564),
+            infoWindow: InfoWindow(
+                title: 'cairo'
+            )
+        ));
+        _markers.add(Marker(markerId: MarkerId('3'),
+            position: LatLng(31.126823, 33.787196),
+            infoWindow: InfoWindow(
+                title: 'parking 3'
+            )
+        ));
+        _markers.add(Marker(markerId: MarkerId('4'),
+            position: LatLng( 31.137395, 33.786566),
+            infoWindow: InfoWindow(
+                title: 'parking 4'
+            )
+        ));
+        _markers.add(Marker(markerId: MarkerId('5'),
+            position: LatLng( 31.136576, 33.774786),
+            infoWindow: InfoWindow(
+                title: 'parking 5'
+            )
+        ));
+      });
+    });
   }
 
-  void setInitialLocation() {
-    currentLocation =
-        LatLng(SOURCE_LOCATION.latitude, SOURCE_LOCATION.longitude);
-    destinationLocation =
-        LatLng(DEST_LOCATION.latitude, DEST_LOCATION.longitude);
+  @override
+  void initState(){
+    super.initState();
+    setState(() {
+     getLocation();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Direction"),
+        title: Text("Parking"),
       ),
-      body: GoogleMap(
-        myLocationEnabled: true,
-        compassEnabled: false,
-        tiltGesturesEnabled: false,
-        polylines: _polylines,
-        markers: _markers,
-        onMapCreated: (GoogleMapController controller) {
-          mapController.complete(controller);
-
-          showMarker();
-          setPolylines();
-        },
-        initialCameraPosition: CameraPosition(
-          target: SOURCE_LOCATION,
-          zoom: 13,
-        ),
+      body: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child:GoogleMap(
+              zoomControlsEnabled: false,
+              initialCameraPosition:CameraPosition(
+                target: LatLng(30.033333, 31.233334),
+                zoom: 11.0,
+              ),
+              onMapCreated: (GoogleMapController controller){
+                _controller = controller;
+              },
+              markers: _markers,
+            ) ,
+          ),
+          Positioned(
+            top: 25,
+            right: 25,
+            child: FloatingActionButton(
+              child: Icon(Icons.location_searching,color: Colors.white,),
+              onPressed: (){
+                getLocation();
+              },
+            ),
+          ),
+        ],
       ),
     );
-  }
-
-  void showMarker() {
-    setState(() {
-      _markers.add(Marker(
-        markerId: MarkerId('sourcePin'),
-        position: currentLocation,
-        icon: BitmapDescriptor.defaultMarker,
-      ));
-
-      _markers.add(Marker(
-        markerId: MarkerId('destinationPin'),
-        position: destinationLocation,
-        icon: BitmapDescriptor.defaultMarkerWithHue(90),
-      ));
-    });
-  }
-
-  void setPolylines() async {
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-        "<GOOGLE_MAPS_API_KEY_HERE>",
-        PointLatLng(currentLocation.latitude, currentLocation.longitude),
-        PointLatLng(
-            destinationLocation.latitude, destinationLocation.longitude)
-    );
-
-    if (result.status == 'OK') {
-      result.points.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
-
-      setState(() {
-        _polylines.add(Polyline(
-            width: 10,
-            polylineId: PolylineId('polyLine'),
-            color: Color(0xFF08A5CB),
-            points: polylineCoordinates));
-      });
-    }
   }
 }

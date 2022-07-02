@@ -4,6 +4,8 @@ import 'package:car_care/shared/components/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shared/constants/app_colors.dart';
+
 class UpdateProfileScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   var nameController = TextEditingController();
@@ -48,6 +50,7 @@ class UpdateProfileScreen extends StatelessWidget {
                   TextFormField(
                     controller:  phoneController,
                     textCapitalization: TextCapitalization.words,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(hintText:  'phone'),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -64,9 +67,10 @@ class UpdateProfileScreen extends StatelessWidget {
                     height: 50,
                     width: double.infinity,
                     child: MaterialButton(
-                      color: Colors.red,
+                      color: appPrimaryColor,
                       onPressed: (){
                         if(formKey.currentState!.validate()){
+
                           AppCubit.get(context).updateUserData(name: nameController.text, phone: phoneController.text);
                           Navigator.of(context).pop();
                         }

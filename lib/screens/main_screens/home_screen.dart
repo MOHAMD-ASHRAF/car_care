@@ -1,9 +1,5 @@
-import 'package:car_care/cubit/app_state.dart';
-import 'package:car_care/cubit/cubit.dart';
 import 'package:car_care/screens/car_repair/type_of_repair.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../shared/components/default_button.dart';
 import '../buy_sell/buy_sell_screen.dart';
 import '../car_service/car_service.dart';
@@ -15,148 +11,181 @@ import '../../shared/constants/app_colors.dart';
 import '../../shared/constants/drawer_widget.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final urlImage= [
-    'https://bloomerang.co/wp-content/uploads/2016/10/bmw-header.png',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Fkwuze97T8a6bsYiG-KMdL6bplKciuk12g&usqp=CAU',
-    'https://www.izmostock.com/wp-content/uploads/2018/04/izmostock_MainBanner_05.jpg',
+    'https://c.files.bbci.co.uk/118A0/production/_118604817__116721094_mustang.jpg',
+    'https://images.pexels.com/photos/3729464/pexels-photo-3729464.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+    'https://techcrunch.com/wp-content/uploads/2019/07/2019-bmw-i8-1.jpg?w=730&crop=1',
+    'https://www.autocar.co.uk/sites/autocar.co.uk/files/images/car-reviews/first-drives/legacy/1_rangerover_tracking.jpg',
+    'https://stimg.cardekho.com/images/carexteriorimages/630x420/Lamborghini/Urus/4418/Lamborghini-Urus-V8/1621927166506/front-left-side-47.jpg?impolicy=resize&imwidth=480',
   ];
+
   var boardController = PageController();
+
+  int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-
-    return BlocConsumer<AppCubit,AppState>(
-         listener: (context, state){},
-        builder: (context,state){
-          var profileImage  = AppCubit.get(context).profileImage;
-          return Scaffold(
-              drawer: DrawerWidget(),
-              appBar: AppBar(
-                toolbarHeight: 70,
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                centerTitle: true,
-                title: Text(
-                  'Home Screen',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                actions: [
-                  MaterialButton(
-                    minWidth: 10,
-                    height: 10,
-                    onPressed: (){
-                      navigateTo(context, ProfileScreen());
-                    },
-                    child:  CircleAvatar(
-                      radius: 20,
-                      backgroundImage: profileImage == null ? NetworkImage(
-                          '${AppCubit.get(context).userModel!.user!.url}'
-                      ) : FileImage(profileImage) as ImageProvider,
-                    ),
-                  )
-                ],
-                flexibleSpace: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(7),
-                        bottomRight: Radius.circular(7)),
-                     gradient: LinearGradient(
-                    colors: [appPrimaryColor,Colors.red],
-                    begin: Alignment.bottomRight,
-                    end: Alignment.bottomLeft,
-                  ),
-                  ),
-                ),
+    return Scaffold(
+      drawer: DrawerWidget(),
+      appBar: AppBar(
+        toolbarHeight: 70,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          'Home Screen',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        actions: [
+          MaterialButton(
+            minWidth: 10,
+            height: 10,
+            onPressed: (){
+              navigateTo(context, ProfileScreen());
+            },
+            child:  Icon(Icons.settings,color: Colors.white,size: 30,),
+          )
+        ],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(7),
+                bottomRight: Radius.circular(7)),
+            gradient: LinearGradient(
+              colors: [appPrimaryColor,Colors.teal],
+              begin: Alignment.bottomRight,
+              end: Alignment.bottomLeft,
+            ),
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        controller: boardController,
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            CarouselSlider(
+              options: CarouselOptions(
+                autoPlay: true,
+                onPageChanged: (index, reason) {
+                setState(() {
+                  currentIndex = index;
+                });
+                },
               ),
-              body: SingleChildScrollView(
-                controller: boardController,
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [
-                    SizedBox(height:  10,),
-                    CarouselSlider.builder(
-                      itemCount: urlImage.length,
-                      itemBuilder: (context,index,realIndex){
-                        final item = urlImage[index];
-
-                        return buildImage(item, index);
-                      },
-                        options: CarouselOptions(
-                          pauseAutoPlayInFiniteScroll: false,
-                          enlargeCenterPage: true,
-                          height: 180,
-                          initialPage: 0,
-                          viewportFraction: 1,
-                          enableInfiniteScroll: true,
-                          reverse: false,
-                          autoPlay: true,
-                          autoPlayInterval: Duration(seconds:  3),
-                          autoPlayAnimationDuration: Duration(seconds: 3),
-                          scrollDirection: Axis.horizontal,
-                        ),
+              items: urlImage.map(
+                    (item) => Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Card(
+                    margin: EdgeInsets.only(
+                      top: 15.0,
+                      bottom: 15,
                     ),
-                    SizedBox(height:  10,),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: GridView(
-                        physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          children: [
-                            homeItem(
-                                image: AssetImage('assets/images/Untitled-6.png'),
-                                text: 'CAE REPAIR',
-                                function: () {
-                                  navigateTo(context,TypeOfRepair());
-                                }),
-                            homeItem(
-                                image: AssetImage('assets/images/Untitled-7.png'),
-                                text: 'RECOVERY',
-                                function: () {
-                                  navigateTo(context, RecoveryScreen());
-                                }),
-                            homeItem(
-                                image: AssetImage('assets/images/Untitled-5.png'),
-                                text: 'SPARE PARTS',
-                                function: () {
-                                  navigateTo(context, SpareScreen());
-                                }),
-                            homeItem(
-                                image: AssetImage('assets/images/lolo.png'),
-                                text: 'PARKING',
-                                function: () {
-                                  navigateTo(context, Direction());
-                                }),
-                            homeItem(
-                                image: AssetImage('assets/images/Untitled-2.png'),
-                                text: 'BUY % SELL',
-                                function: () {
-                                  navigateTo(context, BuySell());
-                                }),
-                            homeItem(
-                                image: AssetImage('assets/images/Untitled-4.png'),
-                                text: 'CAR SERVICES',
-                                function: () {
-                                  navigateTo(context, CarServices());
-                                }),
-                          ],
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 20,
-                            childAspectRatio: 0.75,
-                            crossAxisSpacing: 20,
-                          )
+                    elevation: 6.0,
+                    shadowColor: appPrimaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(30.0),
+                      ),
+                      child: Stack(
+                        children: <Widget>[
+                          Image.network(
+                            item,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              )
-          );
-        },
+              ).toList(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: urlImage.map((urlOfItem) {
+                int index = urlImage.indexOf(urlOfItem);
+                return Container(
+                  width: 20.0,
+                  height: 10.0,
+                  margin: EdgeInsets.symmetric(horizontal: 2.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: currentIndex   == index
+                        ? Color.fromRGBO(0, 0, 0, 0.8)
+                        : Color.fromRGBO(0, 0, 0, 0.3),
+                  ),
+                );
+              }).toList(),),
+            SizedBox(height:  10,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: GridView(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  children: [
+                    homeItem(
+                        image: AssetImage('assets/images/Untitled-6.png'),
+                        text: 'CAE REPAIR',
+                        function: () {
+                          navigateTo(context,TypeOfRepair());
+                        }),
+                    homeItem(
+                        image: AssetImage('assets/images/Untitled-7.png'),
+                        text: 'RECOVERY',
+                        function: () {
+                          navigateTo(context, RecoveryScreen());
+                        }),
+                    homeItem(
+                        image: AssetImage('assets/images/Untitled-5.png'),
+                        text: 'SPARE PARTS',
+                        function: () {
+                          navigateTo(context, SpareScreen());
+                        }),
+                    homeItem(
+                        image: AssetImage('assets/images/lolo.png'),
+                        text: 'PARKING',
+                        function: () {
+                          navigateTo(context, Home());
+                        }),
+                    homeItem(
+                        image: AssetImage('assets/images/Untitled-2.png'),
+                        text: 'BUY % SELL',
+                        function: () {
+                          navigateTo(context, BuySell());
+                        }),
+                    homeItem(
+                        image: AssetImage('assets/images/Untitled-4.png'),
+                        text: 'CAR SERVICES',
+                        function: () {
+                          navigateTo(context, CarServices());
+                        }),
+                  ],
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 20,
+                    childAspectRatio: 0.75,
+                    crossAxisSpacing: 20,
+                  )
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -174,7 +203,7 @@ class HomeScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     color: Colors.grey[200],
-                    border: Border.all(color: appPrimaryColor, width: 4)
+                    border: Border.all(color: appPrimaryColor, width: 3)
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(20),

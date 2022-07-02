@@ -22,13 +22,12 @@ class AppCubit extends Cubit<AppState> {
 
   AppCubit() : super(AppInitialState());
 
+
   static AppCubit get(context) => BlocProvider.of(context);
 
   File? profileImage;
   var picker =ImagePicker();
-
   String token = CacheHelper.getData(key: 'token')??'';
-
 
   Future<void> getProfileImageFromGallery(BuildContext context) async{
     emit(ProfileImagePikerLoadingState());

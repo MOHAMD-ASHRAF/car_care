@@ -4,7 +4,7 @@ const Color takeMoneyColor = Color(0xFF388E3C);
 
 const Color fadedTextColor = Color(0xFF888888);
 
-const Color appPrimaryColor = Color(0xFFbd121b);
+const Color appPrimaryColor = Color(0xFF22a3b3);
 
 const IconThemeData iconThemeData = IconThemeData(
   color: Colors.white,

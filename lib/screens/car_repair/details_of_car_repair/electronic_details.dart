@@ -52,7 +52,7 @@ class ElctronicCarRepairDetailsScreen extends StatelessWidget {
                     bottomLeft: Radius.circular(7),
                     bottomRight: Radius.circular(7)),
                 gradient: LinearGradient(
-                  colors: [appPrimaryColor,Colors.red],
+                  colors: [appPrimaryColor,Colors.teal],
                   begin: Alignment.bottomRight,
                   end: Alignment.bottomLeft,
                 ),

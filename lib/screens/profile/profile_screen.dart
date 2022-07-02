@@ -103,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('${cubit .userModel!.user!.email}',style: TextStyle(fontSize: 15 , fontWeight: FontWeight.bold,color: appPrimaryColor),),
+                          Text('${cubit.userModel!.user!.email}',style: TextStyle(fontSize: 15 , fontWeight: FontWeight.bold,color: appPrimaryColor),),
                           SizedBox(width: 100,),
                           Text('client',style: TextStyle(fontSize: 15 , fontWeight: FontWeight.bold,color: Colors.black),),
                         ],
@@ -148,14 +148,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               }
                             });
                           },
-                          child: defaultButton(colorText: Colors.white, color: Colors.red, width: 150, text: 'SIGN OUT')),
+                          child: defaultButton(colorText: Colors.white, color: appPrimaryColor, width: 150, text: 'SIGN OUT')),
                     ],
                   ),
                 ),
               ),
             ),
           ),
-          fallback: (context) =>Center(child: CircularProgressIndicator(color: Colors.red,),)
+          fallback: (context) =>Center(child: CircularProgressIndicator(color: appPrimaryColor,),)
         );
       }
     );

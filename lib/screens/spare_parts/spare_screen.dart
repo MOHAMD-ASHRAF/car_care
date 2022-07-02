@@ -35,7 +35,7 @@ Widget buildGrid() {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const SpareDetails()),
+              MaterialPageRoute(builder: (context) =>  SpareDetails()),
             );
           },
           child: buildCard());

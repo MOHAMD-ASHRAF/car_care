@@ -18,7 +18,6 @@ class _MapScreenState extends State<RecoveryScreen> {
   void getLocation() async{
     var location = await currentLocation.getLocation();
     currentLocation.onLocationChanged.listen((LocationData loc){
-
       _controller?.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
         target: LatLng(loc.latitude ?? 0.0,loc.longitude?? 0.0),
         zoom: 12.0,
@@ -27,8 +26,11 @@ class _MapScreenState extends State<RecoveryScreen> {
       print(loc.longitude);
       setState(() {
         _markers.add(Marker(markerId: MarkerId('Home'),
-            position: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0)
+            position: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0),
         ));
+        // _markers.add(Marker(markerId: MarkerId('2'),
+        //     position: LatLng(31.1184060,34.8073090)
+        // ));
       });
     });
   }
@@ -37,6 +39,7 @@ class _MapScreenState extends State<RecoveryScreen> {
   void initState(){
     super.initState();
     setState(() {
+
        getLocation();
     });
   }

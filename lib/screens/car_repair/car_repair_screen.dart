@@ -50,7 +50,8 @@ class CarRepairScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(7),
-                        bottomRight: Radius.circular(7)),
+                        bottomRight: Radius.circular(7)
+                    ),
                     gradient: LinearGradient(
                       colors: [appPrimaryColor,Colors.red],
                       begin: Alignment.bottomRight,
