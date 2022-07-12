@@ -19,14 +19,14 @@ class UserOrWorkerScreen extends StatelessWidget {
               Text(' WHO ARE YOU !' , style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
               SizedBox(height: 70,),
               buildItem(
-                  image: AssetImage('assets/images/Untitled-6.png'),
+                  image: AssetImage('assets/images/repair.png'),
                   text: 'Worker',
                   function: () {
                     navigateTo(context,WorkerLoginScreen());
                   }),
               SizedBox(height: 30,),
               buildItem(
-                  image: AssetImage('assets/images/Untitled-6.png'),
+                  image: AssetImage('assets/images/repair.png'),
                   text: 'user',
                   function: () {
                     navigateTo(context, LoginScreen());

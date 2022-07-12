@@ -56,7 +56,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(7),
                       bottomRight: Radius.circular(7)),
-                  color: appPrimaryColor,
+                  gradient: LinearGradient(
+                    colors: [appPrimaryColor,secondColor],
+                    begin: Alignment.bottomRight,
+                    end: Alignment.bottomLeft,
+                  ),
                 ),
               ),
             ),

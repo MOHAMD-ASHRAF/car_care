@@ -49,28 +49,20 @@ class WorkerLoginScreen extends StatelessWidget {
       },
       builder: (context,state) {
         return Scaffold(
-          body: Stack(
-            children: [
-              backGround(),
-              SingleChildScrollView(
-                reverse: true,
-                physics: BouncingScrollPhysics(),
-                child: SafeArea(
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                backGround(),
+                SafeArea(
                   child: Form(
                     key: formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 320,
-                        ),
                         if (!isKeyboard) buildLogo(),
-                        SizedBox(
-                          height: 15,
-                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 0, horizontal: 20),
+                              horizontal: 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,18 +113,6 @@ class WorkerLoginScreen extends StatelessWidget {
                               SizedBox(
                                 height: 5,
                               ),
-                              Row(
-                                children: [
-                                  Checkbox(
-                                      value: checked,
-                                      onChanged: (value) {}),
-                                  Text('Remember Me',
-                                      style: TextStyle(
-                                        color: Colors.grey[500],
-                                        fontSize: 16,
-                                      )),
-                                ],
-                              ),
                               SizedBox(
                                 height: 10,
                               ),
@@ -162,7 +142,7 @@ class WorkerLoginScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 30),
+                              SizedBox(height: 20),
                               Row(
                                 children: [
                                   TextButton(
@@ -192,8 +172,8 @@ class WorkerLoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
@@ -205,10 +185,10 @@ class WorkerLoginScreen extends StatelessWidget {
 
 Widget backGround() => Container(
     width: double.infinity,
-    height: double.infinity,
+    height: 370,
     child: Image(
-      image: AssetImage('assets/images/3.png'),
-      fit: BoxFit.cover,
+      image: AssetImage('assets/images/lgin.png'),
+      fit: BoxFit.fill,
     ));
 
 Widget defaultText({required String text}) => Text(text,
@@ -218,7 +198,7 @@ Widget defaultText({required String text}) => Text(text,
     ));
 Widget buildLogo({final urlLogo = 'assets/images/logo.png'}) => Container(
   width: double.infinity,
-  height: 150,
+  height: 140,
   child: Image(
     image: AssetImage(urlLogo),
     fit: BoxFit.cover,

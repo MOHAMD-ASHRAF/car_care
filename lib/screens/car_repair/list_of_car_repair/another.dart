@@ -51,7 +51,7 @@ class AnotherRepairScreen extends StatelessWidget {
                       bottomRight: Radius.circular(7)
                   ),
                   gradient: LinearGradient(
-                    colors: [appPrimaryColor,Colors.teal],
+                    colors: [appPrimaryColor,secondColor],
                     begin: Alignment.bottomRight,
                     end: Alignment.bottomLeft,
                   ),

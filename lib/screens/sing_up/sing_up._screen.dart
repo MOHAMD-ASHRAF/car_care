@@ -54,16 +54,11 @@ class _SingUpScreenState extends State<SingUpScreen> {
           }
         }
       }, builder: (context, state) {
-        return GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: Scaffold(
-            body: Stack(
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Column(
               children: [
                 backGround(),
-                if (isKeyboard) backGroundu(),
-                SizedBox(height: 320),
                 SingleChildScrollView(
                   reverse: true,
                   child: Padding(
@@ -71,11 +66,8 @@ class _SingUpScreenState extends State<SingUpScreen> {
                     child: Form(
                       key: formKey,
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                              height: 280 + MediaQuery.of(context).padding.top),
                           Text('Email',
                               style: TextStyle(
                                 color: Colors.grey[800],
@@ -271,10 +263,12 @@ class _SingUpScreenState extends State<SingUpScreen> {
 }
 
 Widget backGround() => Container(
+  width: double.infinity,
+  height: 340,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/3.png'),
-          fit: BoxFit.cover,
+          image: AssetImage('assets/images/create.png'),
+          fit: BoxFit.fill,
         ),
       ),
     );

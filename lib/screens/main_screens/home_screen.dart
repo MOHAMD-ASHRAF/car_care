@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 bottomLeft: Radius.circular(7),
                 bottomRight: Radius.circular(7)),
             gradient: LinearGradient(
-              colors: [appPrimaryColor,Colors.teal],
+              colors: [appPrimaryColor,secondColor],
               begin: Alignment.bottomRight,
               end: Alignment.bottomLeft,
             ),
@@ -139,37 +139,37 @@ class _HomeScreenState extends State<HomeScreen> {
                   shrinkWrap: true,
                   children: [
                     homeItem(
-                        image: AssetImage('assets/images/Untitled-6.png'),
+                        image: AssetImage('assets/images/repair.png'),
                         text: 'CAE REPAIR',
                         function: () {
                           navigateTo(context,TypeOfRepair());
                         }),
                     homeItem(
-                        image: AssetImage('assets/images/Untitled-7.png'),
+                        image: AssetImage('assets/images/recovery.png'),
                         text: 'RECOVERY',
                         function: () {
                           navigateTo(context, RecoveryScreen());
                         }),
                     homeItem(
-                        image: AssetImage('assets/images/Untitled-5.png'),
+                        image: AssetImage('assets/images/spare.png'),
                         text: 'SPARE PARTS',
                         function: () {
                           navigateTo(context, SpareScreen());
                         }),
                     homeItem(
-                        image: AssetImage('assets/images/lolo.png'),
+                        image: AssetImage('assets/images/parking.png'),
                         text: 'PARKING',
                         function: () {
                           navigateTo(context, Home());
                         }),
                     homeItem(
-                        image: AssetImage('assets/images/Untitled-2.png'),
+                        image: AssetImage('assets/images/sell.png'),
                         text: 'BUY % SELL',
                         function: () {
                           navigateTo(context, BuySell());
                         }),
                     homeItem(
-                        image: AssetImage('assets/images/Untitled-4.png'),
+                        image: AssetImage('assets/images/car service.png'),
                         text: 'CAR SERVICES',
                         function: () {
                           navigateTo(context, CarServices());

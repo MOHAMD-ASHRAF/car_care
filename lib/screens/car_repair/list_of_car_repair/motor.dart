@@ -50,7 +50,7 @@ class MotorRepairScreen extends StatelessWidget {
                       bottomLeft: Radius.circular(7),
                       bottomRight: Radius.circular(7)),
                   gradient: LinearGradient(
-                    colors: [appPrimaryColor,Colors.teal],
+                    colors: [appPrimaryColor,secondColor],
                     begin: Alignment.bottomRight,
                     end: Alignment.bottomLeft,
                   ),

@@ -17,6 +17,7 @@ class ProfileImagePikerErrorState extends AppState {}
 
 
 class WorkerLoginLoadingState extends AppState {}
+
 class WorkerLoginSuccessState extends AppState {
   final WorkerLoginModel workerloginModel;
   WorkerLoginSuccessState(this.workerloginModel);

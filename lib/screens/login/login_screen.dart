@@ -56,24 +56,19 @@ class LoginScreen extends StatelessWidget {
               FocusScope.of(context).unfocus();
             },
             child: Scaffold(
-              body: Stack(
-                children: [
-                  backGround(),
-                  SingleChildScrollView(
-                    reverse: true,
-                    physics: BouncingScrollPhysics(),
-                    child: SafeArea(
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    backGround(),
+                    SafeArea(
                       child: Form(
                         key: formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              height: 320,
-                            ),
                             if (!isKeyboard) buildLogo(),
                             SizedBox(
-                              height: 15,
+                              height: 10,
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
@@ -88,7 +83,6 @@ class LoginScreen extends StatelessWidget {
                                         fontSize: 16,
                                       ),
                                   ),
-                                  SizedBox(height: 5),
                                   defaultField(
                                       controller: emailController,
                                       typeOfInput: TextInputType.emailAddress,
@@ -100,7 +94,6 @@ class LoginScreen extends StatelessWidget {
                                         }
                                         return null;
                                       }),
-                                  SizedBox(height: 10),
                                   Text('Password',
                                       style: TextStyle(
                                         color: Colors.grey[800],
@@ -137,18 +130,18 @@ class LoginScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 5,
                                   ),
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                          value: checked,
-                                          onChanged: (value) {}),
-                                      Text('Remember Me',
-                                          style: TextStyle(
-                                            color: Colors.grey[500],
-                                            fontSize: 16,
-                                          )),
-                                    ],
-                                  ),
+                                  // Row(
+                                  //   children: [
+                                  //     Checkbox(
+                                  //         value: checked,
+                                  //         onChanged: (value) {}),
+                                  //     Text('Remember Me',
+                                  //         style: TextStyle(
+                                  //           color: Colors.grey[500],
+                                  //           fontSize: 16,
+                                  //         )),
+                                  //   ],
+                                  // ),
                                   SizedBox(
                                     height: 10,
                                   ),
@@ -179,13 +172,13 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(height: 30),
-                                  GestureDetector(
-                                    child: Text('GoogleSignIn'),
-                                    onTap: () {
-                                      GoogleSign(LoginInitialState)
-                                          .googleLogin();
-                                    },
-                                  ),
+                                  // GestureDetector(
+                                  //   child: Text('GoogleSignIn'),
+                                  //   onTap: () {
+                                  //     GoogleSign(LoginInitialState)
+                                  //         .googleLogin();
+                                  //   },
+                                  // ),
                                   Row(
                                     children: [
                                       TextButton(
@@ -205,7 +198,8 @@ class LoginScreen extends StatelessWidget {
                                             style: TextStyle(
                                               color: Colors.black,
                                             ),
-                                          )),
+                                          )
+                                       ),
                                     ],
                                   )
                                 ],
@@ -215,8 +209,8 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
@@ -228,9 +222,9 @@ class LoginScreen extends StatelessWidget {
 
 Widget backGround() => Container(
     width: double.infinity,
-    height: double.infinity,
+    height: 370,
     child: Image(
-      image: AssetImage('assets/images/3.png'),
+      image: AssetImage('assets/images/lgin.png'),
       fit: BoxFit.cover,
     ));
 
@@ -239,6 +233,7 @@ Widget defaultText({required String text}) => Text(text,
       color: Colors.grey[500],
       fontSize: 16,
     ));
+
 Widget buildLogo({final urlLogo = 'assets/images/logo.png'}) => Container(
       width: double.infinity,
       height: 150,
