@@ -11,7 +11,6 @@ import '../sing_up/sing_up._screen.dart';
 import 'cubit/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
-
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -32,7 +31,8 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is LoginSuccessState) {
             if (state.loginModel.status.toString() == 'success') {
-              CacheHelper.saveData(key: 'token', value: state.loginModel.token).then((value) {
+              CacheHelper.saveData(key: 'token', value: state.loginModel.token)
+                  .then((value) {
                 navigateAndFinish(context, HomeScreen());
               });
               print(state.loginModel.status);
@@ -77,11 +77,12 @@ class LoginScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Email',
-                                      style: TextStyle(
-                                        color: Colors.grey[800],
-                                        fontSize: 16,
-                                      ),
+                                  Text(
+                                    'Email',
+                                    style: TextStyle(
+                                      color: Colors.grey[800],
+                                      fontSize: 16,
+                                    ),
                                   ),
                                   defaultField(
                                       controller: emailController,
@@ -186,7 +187,7 @@ class LoginScreen extends StatelessWidget {
                                             navigateTo(context, SingUpScreen());
                                           },
                                           child: Text(
-                                            'Sing UP',
+                                            'Sign up',
                                             style:
                                                 TextStyle(color: Colors.black),
                                           )),
@@ -198,8 +199,7 @@ class LoginScreen extends StatelessWidget {
                                             style: TextStyle(
                                               color: Colors.black,
                                             ),
-                                          )
-                                       ),
+                                          )),
                                     ],
                                   )
                                 ],
