@@ -31,7 +31,6 @@ class UpdateProfileScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
                    TextFormField(
                     controller:  nameController,
                     textCapitalization: TextCapitalization.words,

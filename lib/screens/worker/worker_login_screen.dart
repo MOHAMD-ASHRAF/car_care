@@ -196,11 +196,13 @@ Widget defaultText({required String text}) => Text(text,
       color: Colors.grey[500],
       fontSize: 16,
     ));
-Widget buildLogo({final urlLogo = 'assets/images/logo.png'}) => Container(
-  width: double.infinity,
-  height: 140,
-  child: Image(
-    image: AssetImage(urlLogo),
-    fit: BoxFit.cover,
+Widget buildLogo({final urlLogo = 'assets/images/logo2.png'}) => Center(
+  child:   Container(
+    width: 200,
+    height: 100,
+    child: Image(
+      image: AssetImage(urlLogo),
+      fit: BoxFit.cover,
+    ),
   ),
 );

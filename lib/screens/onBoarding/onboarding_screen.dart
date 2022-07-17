@@ -31,17 +31,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   List<BoardingModel> boarding = [
     BoardingModel(
-        image: 'assets/images/first.png',
+        image: 'assets/images/welcome.png',
         title: 'Welcome ',
         body: 'Welcome to our services in car care'
     ),
     BoardingModel(
-        image: 'assets/images/towing.png',
+        image: 'assets/images/second.png',
         title: 'our services',
         body: 'Our services include everything related to car services and maintenance'
     ),
     BoardingModel(
-        image: 'assets/images/login.png',
+        image: 'assets/images/last.png',
         title: 'Register now',
         body: 'Register now to get all the features and services'
     ),
@@ -71,7 +71,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               onPressed: (){
                 submit();
               } ,
-              child: Text('skip',style: TextStyle(color: Colors.red),),
+              child: Text('skip',style: TextStyle(color: appPrimaryColor),),
             ),
         ],
       ),
@@ -105,7 +105,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 SmoothPageIndicator(
                     controller: boardController,
                     effect: ExpandingDotsEffect(
-                      activeDotColor: Colors.red,
+                      activeDotColor: appPrimaryColor,
                       dotColor: Colors.grey,
                       dotHeight: 10,
                       expansionFactor: 3,

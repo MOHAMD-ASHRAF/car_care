@@ -4,6 +4,7 @@ import 'package:car_care/model/login_model.dart';
 import 'package:car_care/network/local/cache_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import '../model/another_worker_model.dart';
@@ -13,6 +14,7 @@ import '../model/worker_login_model.dart';
 import '../model/worker_register_model.dart';
 import '../network/end_point.dart';
 import '../network/remote/dio_helper.dart';
+import '../shared/constants/app_colors.dart';
 import 'app_state.dart';
 
 import 'dart:io';
@@ -162,8 +164,6 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
-
-
 GetUserFromId? userModel;
 
   LoginModel? loginModel;
@@ -179,7 +179,8 @@ void getUserData()
             print(userModel!.user!.sId);
             emit(UserDataSuccessState(
                 userModel!
-            ));
+            )
+            );
           }
   ).catchError((error){
 
@@ -188,7 +189,6 @@ void getUserData()
    }
   );
 }
-
   void updateUserData({
     required String name,
     required String phone,
@@ -235,7 +235,6 @@ void getUserData()
           print(getWorkerModel!.message);
           print(getWorkerModel!.worker!.length);
           print(getWorkerModel!.worker![0].name);
-
           emit(WorkerDataSuccessState(
               getWorkerModel!
           ));
@@ -325,12 +324,4 @@ void getUserData()
     }
     );
   }
-
-
-
-
-
-
-
-
 }

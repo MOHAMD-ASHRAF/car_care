@@ -10,7 +10,6 @@ import '../details_of_car_repair/motor_details.dart';
 
 class MotorRepairScreen extends StatelessWidget {
   const MotorRepairScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppState>(
@@ -25,7 +24,7 @@ class MotorRepairScreen extends StatelessWidget {
               elevation: 0,
               centerTitle: true,
               title: Text(
-                'Car Repair',
+                'Motor',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -116,8 +115,10 @@ Widget buildListViewItem(context,index)=>Container(
             fontSize: 20,fontWeight: FontWeight.bold ,color:appPrimaryColor),
         overflow: TextOverflow.ellipsis,
         maxLines: 1,),
-      subtitle: Text('motor',style: TextStyle(fontSize: 15)),
-      trailing: Icon(Icons.remove_red_eye_outlined , color:appPrimaryColor, size: 30,),
+      subtitle: Text('motor',
+          style: TextStyle(fontSize: 15)),
+      trailing: Icon(
+        Icons.remove_red_eye_outlined , color:appPrimaryColor, size: 30,),
     ),
   ),
 );

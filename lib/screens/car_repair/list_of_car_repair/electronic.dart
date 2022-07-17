@@ -27,7 +27,7 @@ class ElectronicRepairScreen extends StatelessWidget {
               elevation: 0,
               centerTitle: true,
               title: Text(
-                'Car Repair',
+                'Electronic',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,

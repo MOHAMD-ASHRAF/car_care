@@ -2,9 +2,7 @@ class MotorWorkerModel {
   String? status;
   int? length;
   List<Worker>? worker;
-
   MotorWorkerModel({this.status, this.length, this.worker});
-
   MotorWorkerModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     length = json['length'];

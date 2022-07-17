@@ -11,7 +11,6 @@ class GetUserFromId {
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
   }
 }
-
 class User {
   String? sId;
   String? url;
@@ -20,7 +19,6 @@ class User {
   String? email;
   String? password;
   int? iV;
-
   User.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     url = json['url'];

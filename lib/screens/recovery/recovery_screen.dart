@@ -19,8 +19,8 @@ class _MapScreenState extends State<RecoveryScreen> {
     var location = await currentLocation.getLocation();
     currentLocation.onLocationChanged.listen((LocationData loc){
       _controller?.animateCamera(CameraUpdate.newCameraPosition(new CameraPosition(
-        target: LatLng(loc.latitude ?? 0.0,loc.longitude?? 0.0),
-        zoom: 12.0,
+        target: LatLng(30.620868, 32.281418),
+        zoom: 13.90,
       )));
       print(loc.latitude);
       print(loc.longitude);
@@ -28,9 +28,24 @@ class _MapScreenState extends State<RecoveryScreen> {
         _markers.add(Marker(markerId: MarkerId('Home'),
             position: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0),
         ));
-        // _markers.add(Marker(markerId: MarkerId('2'),
-        //     position: LatLng(31.1184060,34.8073090)
-        // ));
+        _markers.add(Marker(markerId: MarkerId('8'),
+            position: LatLng(30.610817, 32.258071),
+            infoWindow: InfoWindow(
+                title: 'Auto repair workshop'
+            )
+        ));
+        _markers.add(Marker(markerId: MarkerId('9'),
+            position: LatLng(30.614679, 32.278846),
+            infoWindow: InfoWindow(
+                title: 'Auto repair workshop2'
+            )
+        ));
+        _markers.add(Marker(markerId: MarkerId('10'),
+            position: LatLng(30.606110, 32.272288),
+            infoWindow: InfoWindow(
+                title: 'electronic'
+            )
+        ));
       });
     });
   }
@@ -39,7 +54,6 @@ class _MapScreenState extends State<RecoveryScreen> {
   void initState(){
     super.initState();
     setState(() {
-
        getLocation();
     });
   }
@@ -48,28 +62,36 @@ class _MapScreenState extends State<RecoveryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Map"),
+        title: Center(child: Text("Car Recovery")),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child:GoogleMap(
-          zoomControlsEnabled: false,
-          initialCameraPosition:CameraPosition(
-            target: LatLng(48.8561, 2.2930),
-            zoom: 12.0,
+      body: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child:GoogleMap(
+              zoomControlsEnabled: false,
+              initialCameraPosition:CameraPosition(
+                target: LatLng(30.619010, 32.271419),
+                zoom: 11,
+              ),
+              onMapCreated: (GoogleMapController controller){
+                _controller = controller;
+              },
+              markers: _markers,
+            ) ,
           ),
-          onMapCreated: (GoogleMapController controller){
-            _controller = controller;
-          },
-          markers: _markers,
-        ) ,
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.location_searching,color: Colors.white,),
-        onPressed: (){
-          getLocation();
-        },
+          Positioned(
+            top: 25,
+            right: 25,
+            child: FloatingActionButton(
+              child: Icon(Icons.location_searching,color: Colors.white,),
+              onPressed: (){
+                getLocation();
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -8,7 +8,6 @@ import 'list_of_car_repair/electronic.dart';
 import 'list_of_car_repair/motor.dart';
 
 class TypeOfRepair extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +80,7 @@ Widget buildItem({
   required AssetImage image,
   required String text,
   GestureTapCallback? function}) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 2,horizontal: 2),
+    padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
     child: InkWell(
     onTap: function,
     child: Stack(
@@ -89,10 +88,10 @@ Widget buildItem({
       children: [
         Container(
           width: double.infinity,
-          height:250,
+          height:240,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              border: Border.all(color: appPrimaryColor, width: 2)
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: appPrimaryColor, width: 3)
           ),
           child: Image(
             image: image ,fit: BoxFit.cover,
@@ -100,7 +99,7 @@ Widget buildItem({
         ),
         Container(
             height: 50,
-            width: 110,
+            width: 120,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10),

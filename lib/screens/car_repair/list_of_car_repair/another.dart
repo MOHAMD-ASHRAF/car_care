@@ -25,7 +25,7 @@ class AnotherRepairScreen extends StatelessWidget {
               elevation: 0,
               centerTitle: true,
               title: Text(
-                'Car Repair',
+                'another',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,

@@ -11,7 +11,6 @@ import '../sing_up/sing_up._screen.dart';
 import 'cubit/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
-
   var formKey = GlobalKey<FormState>();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -220,6 +219,10 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
+
+
+
+
 Widget backGround() => Container(
     width: double.infinity,
     height: 370,
@@ -234,11 +237,17 @@ Widget defaultText({required String text}) => Text(text,
       fontSize: 16,
     ));
 
-Widget buildLogo({final urlLogo = 'assets/images/logo.png'}) => Container(
-      width: double.infinity,
-      height: 150,
-      child: Image(
-        image: AssetImage(urlLogo),
-        fit: BoxFit.cover,
+Widget buildLogo({final urlLogo = 'assets/images/logo2.png'}) => Center(
+  child:   Container(
+        width: 200,
+        height: 100,
+        child: Image(
+
+          image: AssetImage(urlLogo),
+
+          fit: BoxFit.fill,
+
+        ),
+
       ),
-    );
+);
