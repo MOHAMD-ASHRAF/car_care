@@ -1,9 +1,12 @@
 import 'package:car_care/screens/buy_sell/car_details.dart';
-import 'package:car_care/screens/spare_parts/spare_details.dart';
+import 'package:car_care/screens/recovery/recovery_screen.dart';
 import '../../shared/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BuySell extends StatelessWidget {
+  final Uri _url = Uri.parse('https://google.com');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +15,9 @@ class BuySell extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+              },
               child: Icon(Icons.add),
             ),
           )
@@ -24,65 +29,32 @@ class BuySell extends StatelessWidget {
           child: Icon(Icons.arrow_back),
         ),
         backgroundColor: appPrimaryColor,
-        title: Text('Buy & Sell'),
+        title: Text('Car Sharing'),
         centerTitle: true,
       )),
-      body: buildGrid(),
+      body: Center(
+        child: Container(
+          child: GestureDetector(
+            onTap: () {
+              _launchUrl();
+            },
+            child: Text(
+              'Need a ride ? \n just click !',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 30,
+                color: appPrimaryColor,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
-}
 
-Widget buildGrid() {
-  return ListView.builder(
-    padding: EdgeInsets.all(5),
-    itemCount: 20,
-    itemBuilder: (context, index) {
-      return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>  CarDetails()),
-            );
-          },
-          child: buildCard());
-    },
-  );
-}
-
-Widget buildCard() {
-  return Container(
-    padding: EdgeInsets.all(5),
-    decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-    child: Column(
-      children: [
-        Container(
-          child: Image.asset('assets/images/Untitled-4.png'),
-        ),
-        Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'car model',
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  'owner place',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w300),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text('selling price'),
-              ],
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw 'Could not launch $_url';
+    }
+  }
 }
