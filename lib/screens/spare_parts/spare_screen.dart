@@ -6,17 +6,34 @@ class SpareScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: (AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(Icons.arrow_back),
-        ),
-        backgroundColor: appPrimaryColor,
-        title: Text('Car Parts'),
-        centerTitle: true,
-      )),
+      appBar: (
+          AppBar(
+            toolbarHeight: 70,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            centerTitle: true,
+            title: Text(
+              'Spare Screen',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(7),
+                    bottomRight: Radius.circular(7)),
+                gradient: LinearGradient(
+                  colors: [appPrimaryColor, secondColor],
+                  begin: Alignment.bottomRight,
+                  end: Alignment.bottomLeft,
+                ),
+              ),
+            ),
+          )
+      ),
       body: buildGrid(),
     );
   }
@@ -24,6 +41,7 @@ class SpareScreen extends StatelessWidget {
 
 Widget buildGrid() {
   return GridView.builder(
+    padding: EdgeInsets.all(5),
     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 2,
       crossAxisSpacing: 5,
@@ -43,14 +61,18 @@ Widget buildGrid() {
   );
 }
 
+
 Widget buildCard() {
   return Container(
-    padding: EdgeInsets.all(5),
-    decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+    padding: EdgeInsets.all(7),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: appPrimaryColor)
+    ),
     child: Column(
       children: [
         Expanded(
-          child: Image.asset('assets/images/Untitled-4.png'),
+          child: Image.asset('assets/images/car service.png'),
         ),
         Row(
           children: [
@@ -74,3 +96,5 @@ Widget buildCard() {
     ),
   );
 }
+
+

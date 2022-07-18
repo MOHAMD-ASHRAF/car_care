@@ -206,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     homeItem(
                         image: AssetImage('assets/images/repair.png'),
-                        text: 'CAE REPAIR',
+                        text: 'CAR REPAIR',
                         function: () {
                           navigateTo(context, TypeOfRepair());
                         }),
