@@ -1,21 +1,28 @@
+import 'package:car_care/screens/about_us/about_us_screen.dart';
+import 'package:car_care/screens/car_service/batterycharge.dart';
+import 'package:car_care/screens/car_service/carpaint.dart';
+import 'package:car_care/screens/car_service/carwash.dart';
+import 'package:car_care/screens/car_service/fuel.dart';
+import 'package:car_care/screens/car_service/tyrecheck.dart';
+
 import '../main_screens/home_screen.dart';
 import '../../shared/constants/app_colors.dart';
-import '../../shared/constants/drawer_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CarServices extends StatelessWidget {
+class CarServices extends StatefulWidget {
   const CarServices({Key? key}) : super(key: key);
 
+  @override
+  State<CarServices> createState() => _CarServicesState();
+}
+
+class _CarServicesState extends State<CarServices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Image(
-              image: AssetImage('assets/images/back buttom.png'),
-              fit: BoxFit.cover,
-            ),
+            icon: Icon(Icons.arrow_back),
             padding: EdgeInsets.all(0),
             onPressed: () {
               Navigator.pop(context, HomeScreen());
@@ -36,9 +43,7 @@ class CarServices extends StatelessWidget {
           actions: [Icon(Icons.menu)],
           flexibleSpace: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
+              borderRadius: BorderRadius.only(),
               color: appPrimaryColor,
             ),
           ),
@@ -49,18 +54,23 @@ class CarServices extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               children: [
                 homeItem(
+                    doit: CarWash(),
                     image: AssetImage('assets/images/fefedwdw.png'),
                     text: 'CAR WASH'),
                 homeItem(
+                    doit: BatterCharge(),
                     image: AssetImage('assets/images/fefe.png'),
                     text: 'Battery Charge'),
                 homeItem(
+                    doit: TyreCheck(),
                     image: AssetImage('assets/images/cece.png'),
                     text: 'TYRE CHECK'),
                 homeItem(
+                    doit: CarPaint(),
                     image: AssetImage('assets/images/11.png'),
                     text: 'CAR PAINTING'),
                 homeItem(
+                    doit: Fuel(),
                     image: AssetImage('assets/images/Untitled-8.png'),
                     text: 'FUEL'),
               ],
@@ -76,23 +86,32 @@ class CarServices extends StatelessWidget {
   Widget homeItem({
     required AssetImage image,
     required String text,
+    required Widget doit,
   }) =>
       InkWell(
         onTap: () {},
         child: Column(
           children: [
             Expanded(
-              child: Container(
-                height: 130,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Colors.grey[200],
-                    border: Border.all(color: appPrimaryColor, width: 4)),
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Image(
-                    image: image,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => doit),
+                  );
+                },
+                child: Container(
+                  height: 130,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.grey[200],
+                      border: Border.all(color: appPrimaryColor, width: 4)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Image(
+                      image: image,
+                    ),
                   ),
                 ),
               ),
