@@ -1,100 +1,128 @@
+
 import 'package:car_care/screens/spare_parts/spare_details.dart';
-import '../../shared/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../shared/constants/app_colors.dart';
 
 class SpareScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: (
-          AppBar(
-            toolbarHeight: 70,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            centerTitle: true,
-            title: Text(
-              'Spare Screen',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
+      backgroundColor: Color(0xfff5f5f3),
+      appBar: AppBar(
+        toolbarHeight: 70,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          'Spare Screen',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(7),
+                bottomRight: Radius.circular(7)),
+            gradient: LinearGradient(
+              colors: [appPrimaryColor, secondColor],
+              begin: Alignment.bottomRight,
+              end: Alignment.bottomLeft,
             ),
-            flexibleSpace: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(7),
-                    bottomRight: Radius.circular(7)),
-                gradient: LinearGradient(
-                  colors: [appPrimaryColor, secondColor],
-                  begin: Alignment.bottomRight,
-                  end: Alignment.bottomLeft,
-                ),
-              ),
+          ),
+        ),
+      ),
+
+      body: GridView(
+        padding: EdgeInsets.all(10),
+          children: [
+            buildSpare(
+              image: AssetImage('assets/images/part2.jpg'),
+              name: 'gear',
+              price: '200 LE'
             ),
+            buildSpare(
+              image: AssetImage('assets/images/part4.webp'),
+                name: 'tires',
+                price: '150 LE'
+            ),
+            buildSpare(
+                image: AssetImage('assets/images/part0.jpg'),
+                name: 'brake',
+                price: '130 LE'
+            ),
+            buildSpare(
+                image: AssetImage('assets/images/part 6.jpg'),
+                name: 'gasoline filter',
+                price: '50LE'
+            ), buildSpare(
+                image: AssetImage('assets/images/part 7.jpg'),
+                name: 'dynamo',
+                price: '250 LE'
+            ),
+            buildSpare(
+                image: AssetImage('assets/images/part8.jpeg'),
+                name: 'spark plugs',
+                price: '35 LE'
+            ),
+            buildSpare(
+                image: AssetImage('assets/images/part9.jpg'),
+                name: 'motor',
+                price: '2200 LE'
+            ),
+
+            buildSpare(
+                image: AssetImage('assets/images/part5.png'),
+                name: 'tires',
+                price: '150 LE'
+            ),
+          ],
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 15,
+            childAspectRatio: 0.90,
+            crossAxisSpacing: 15,
           )
       ),
-      body: buildGrid(),
     );
   }
-}
 
-Widget buildGrid() {
-  return GridView.builder(
-    padding: EdgeInsets.all(5),
-    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-      crossAxisSpacing: 5,
-      mainAxisSpacing: 5,
-    ),
-    itemCount: 20,
-    itemBuilder: (context, index) {
-      return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) =>  SpareDetails()),
-            );
-          },
-          child: buildCard());
-    },
-  );
-}
-
-
-Widget buildCard() {
-  return Container(
-    padding: EdgeInsets.all(7),
+  Widget buildSpare({
+    context,
+    //index,
+    required AssetImage image,
+     required String name,
+    required String price,
+  }
+  )=> Container(
+    height: 200,
+    width: 200,
     decoration: BoxDecoration(
+      color: Colors.white,
       borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: appPrimaryColor)
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.5),
+          blurRadius: 5,
+        )
+      ],
     ),
     child: Column(
       children: [
-        Expanded(
-          child: Image.asset('assets/images/car service.png'),
+        Container(
+          child: Image(
+           image: image,
+  ),
+          height: 140,
         ),
-        Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'part name',
-                  style: TextStyle(fontSize: 18),
-                ),
-                Text(
-                  'part description',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w300),
-                ),
-                Text('50 l.e'),
-              ],
-            ),
-          ],
-        ),
+        Text( name,style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold, color: secondColor),),
+        SizedBox(height: 5,),
+        Text(price ,style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)
       ],
     ),
   );
 }
-
 

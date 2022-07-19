@@ -12,7 +12,6 @@ import '../../../shared/components/show_model.dart';
 import '../../../shared/constants/app_colors.dart';
 
 class MotorCarRepairDetailsScreen extends StatelessWidget {
-
    double rating=0;
   final int index;
   MotorCarRepairDetailsScreen(this.index);

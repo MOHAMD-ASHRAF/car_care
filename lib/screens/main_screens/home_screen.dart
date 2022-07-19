@@ -246,7 +246,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisSpacing: 20,
                     childAspectRatio: 0.75,
                     crossAxisSpacing: 20,
-                  )),
+                  )
+              ),
             ),
           ],
         ),
