@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BuySell extends StatelessWidget {
-  final Uri _url = Uri.parse('https://google.com');
+  final Uri _url = Uri.parse(
+      'https://car-care-graduation-git-main-ahmedtaher820.vercel.app/carshare');
 
   @override
   Widget build(BuildContext context) {
