@@ -11,27 +11,28 @@ class UserOrWorkerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
-          child: Column(
-            children: [
-              Text(' WHO ARE YOU !' , style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-              SizedBox(height: 70,),
-              buildItem(
-                  image: AssetImage('assets/images/mechanic.png'),
-                  text: 'Worker',
-                  function: () {
-                    navigateTo(context,WorkerLoginScreen());
-                  }),
-              SizedBox(height: 30,),
-              buildItem(
-                  image: AssetImage('assets/images/man.png'),
-                  text: 'user',
-                  function: () {
-                    navigateTo(context, LoginScreen());
-                  }),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(' WHO ARE YOU !' , style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                SizedBox(height: 70,),
+                buildItem(
+                    image: AssetImage('assets/images/mechanic.png'),
+                    text: 'Worker',
+                    function: () {
+                      navigateTo(context,WorkerLoginScreen());
+                    }),
+                SizedBox(height: 30,),
+                buildItem(
+                    image: AssetImage('assets/images/man.png'),
+                    text: 'user',
+                    function: () {
+                      navigateTo(context, LoginScreen());
+                    }),
+              ],
+            ),
           ),
         ),
       ),
